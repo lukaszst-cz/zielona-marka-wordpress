@@ -2,6 +2,12 @@
 
 Autorski motyw portfolio dla firmy projektującej i wdrażającej strony internetowe.
 
+## Działająca prezentacja
+
+[Otwórz statyczny podgląd motywu](https://lukaszst-cz.github.io/zielona-marka-wordpress/preview/)
+
+GitHub Pages pokazuje wygląd motywu. Edycję treści w panelu WordPress można zaprezentować po lokalnej instalacji WordPressa.
+
 ## Instalacja
 
 1. W panelu WordPress przejdź do **Wygląd → Motywy → Dodaj nowy → Wyślij motyw na serwer**.
