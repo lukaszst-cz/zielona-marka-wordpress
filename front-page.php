@@ -101,7 +101,7 @@ $brief_status = sanitize_key(wp_unslash($_GET['brief'] ?? ''));
 
     <section id="kontakt" class="contact section-pad">
         <div class="wrap contact-grid">
-            <div class="contact-copy"><span class="section-label">05 / KONTAKT</span><h2>Masz pomysł?<br><em>Zróbmy mu miejsce.</em></h2><p>Napisz kilka zdań o firmie i celu strony. Odpowiem z propozycją kolejnych kroków oraz wstępnym przedziałem ceny.</p><a href="mailto:<?php echo esc_attr(get_theme_mod('zm_email', 'lukasz.staniewicz@gmail.com')); ?>"><?php echo esc_html(get_theme_mod('zm_email', 'lukasz.staniewicz@gmail.com')); ?> ↗</a></div>
+            <div class="contact-copy"><span class="section-label">05 / KONTAKT</span><h2>Masz pomysł?<br><em>Zróbmy mu miejsce.</em></h2><p>Napisz kilka zdań o firmie i celu strony. Odpowiem z propozycją kolejnych kroków oraz wstępnym przedziałem ceny.</p><a href="mailto:<?php echo esc_attr(get_theme_mod('zm_email', 'kontakt@przyklad.pl')); ?>"><?php echo esc_html(get_theme_mod('zm_email', 'kontakt@przyklad.pl')); ?> ↗</a></div>
             <form class="brief-form" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
                 <input type="hidden" name="action" value="zm_send_brief">
                 <?php wp_nonce_field('zm_send_brief', 'zm_brief_nonce'); ?>

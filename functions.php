@@ -69,7 +69,7 @@ function zm_customize_register(WP_Customize_Manager $customizer): void {
         'priority' => 30,
     ]);
     $fields = [
-        'zm_email' => ['E-mail', 'lukasz.staniewicz@gmail.com', 'email'],
+        'zm_email' => ['E-mail', 'kontakt@przyklad.pl', 'email'],
         'zm_phone' => ['Telefon', '+48 000 000 000', 'text'],
         'zm_instagram' => ['Adres profilu Instagram', '', 'url'],
     ];
@@ -114,7 +114,7 @@ function zm_schema(): void {
         '@type' => 'ProfessionalService',
         'name' => 'Zielona Marka',
         'url' => home_url('/'),
-        'email' => get_theme_mod('zm_email', 'lukasz.staniewicz@gmail.com'),
+        'email' => get_theme_mod('zm_email', 'kontakt@przyklad.pl'),
         'areaServed' => 'PL',
         'description' => 'Projektowanie i wdrażanie stron internetowych dla firm.',
         'serviceType' => ['Strony firmowe', 'Landing page', 'Portfolio', 'WordPress', 'SEO techniczne'],
