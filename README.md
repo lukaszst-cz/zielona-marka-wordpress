@@ -1,8 +1,8 @@
-# Zielona Marka — motyw WordPress
+# Zielona Marka, motyw WordPress
 
 **Problem:** mała firma potrzebuje strony, którą może później samodzielnie uzupełniać, a która nadal wygląda indywidualnie i prowadzi klienta do kontaktu.
 
-**Rozwiązanie:** autorski motyw WordPress dla firmy usługowej lub portfolio — bez gotowego, przypadkowego szablonu.
+**Rozwiązanie:** autorski motyw WordPress dla firmy usługowej lub portfolio, bez gotowego, przypadkowego szablonu.
 
 [Otwórz statyczny podgląd motywu](https://lukaszst-cz.github.io/zielona-marka-wordpress/preview/)
 
@@ -24,7 +24,7 @@
 
 1. W WordPressie wybierz **Wygląd → Motywy → Dodaj nowy → Wyślij motyw na serwer**.
 2. Wgraj `zielona-marka-wordpress.zip`, zainstaluj i aktywuj.
-3. W **Wygląd → Dostosuj → Zielona Marka — kontakt** wpisz prawdziwy e-mail, telefon i Instagram.
+3. W **Wygląd → Dostosuj → Zielona Marka, kontakt** wpisz prawdziwy e-mail, telefon i Instagram.
 4. W **Ustawienia → Bezpośrednie odnośniki** kliknij „Zapisz zmiany”.
 
 Formularz korzysta z `wp_mail()`; przed publikacją warto skonfigurować SMTP i wysłać wiadomość testową.
