@@ -16,6 +16,9 @@ add_action('after_setup_theme', 'zm_setup');
 
 function zm_assets(): void {
     wp_enqueue_style('zm-main', get_template_directory_uri() . '/assets/css/main.css', [], ZM_VERSION);
+    if (is_page('detailflow')) {
+        wp_enqueue_style('zm-detailflow', get_template_directory_uri() . '/assets/css/detailflow.css', ['zm-main'], ZM_VERSION);
+    }
     wp_enqueue_script('zm-main', get_template_directory_uri() . '/assets/js/main.js', [], ZM_VERSION, true);
 }
 add_action('wp_enqueue_scripts', 'zm_assets');
