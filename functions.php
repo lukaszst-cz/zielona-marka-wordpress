@@ -161,7 +161,7 @@ function zm_render_contact_form(bool $audit = false): void {
 
 
 function zm_create_required_pages(): void {
-    $pages = [
+    $root_pages = [
         'oferta' => 'Oferta',
         'modernizacja-strony' => 'Modernizacja strony',
         'realizacje' => 'Realizacje',
@@ -175,19 +175,59 @@ function zm_create_required_pages(): void {
         'strony-dla-beauty' => 'Strony dla beauty',
         'asystent-zapytan' => 'Asystent zapytań',
         'strony-internetowe-marki' => 'Strony internetowe Marki',
+        'en' => 'English',
+        'demo' => 'Demo',
     ];
 
-    foreach ($pages as $slug => $title) {
-        if (get_page_by_path($slug)) {
+    $ids = [];
+    foreach ($root_pages as $slug => $title) {
+        $page = get_page_by_path($slug);
+        if ($page) {
+            $ids[$slug] = (int) $page->ID;
             continue;
         }
-        wp_insert_post([
+        $ids[$slug] = (int) wp_insert_post([
             'post_type' => 'page',
             'post_status' => 'publish',
             'post_title' => $title,
             'post_name' => $slug,
             'post_content' => '',
         ]);
+    }
+
+    $children = [
+        'demo' => [
+            'natura-strona' => 'Natura Studio — demo strony',
+            'bistro-strona' => 'Bistro Forma — demo strony',
+            'dom-strona' => 'Dom Dobry — demo strony',
+        ],
+        'realizacje' => [
+            'natura-studio' => 'Natura Studio',
+            'bistro-forma' => 'Bistro Forma',
+            'dom-dobry' => 'Dom Dobry',
+            'transportflow' => 'TransportFlow',
+            'detailflow' => 'DetailFlow',
+        ],
+    ];
+
+    foreach ($children as $parent_slug => $pages) {
+        $parent_id = $ids[$parent_slug] ?? 0;
+        if (!$parent_id) {
+            continue;
+        }
+        foreach ($pages as $slug => $title) {
+            if (get_page_by_path($parent_slug . '/' . $slug)) {
+                continue;
+            }
+            wp_insert_post([
+                'post_type' => 'page',
+                'post_status' => 'publish',
+                'post_title' => $title,
+                'post_name' => $slug,
+                'post_parent' => $parent_id,
+                'post_content' => '',
+            ]);
+        }
     }
 
     update_option('show_on_front', 'posts');
