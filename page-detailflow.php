@@ -1,4 +1,12 @@
+<!doctype html>
+<html <?php language_attributes(); ?>>
+<head>
+<meta charset="<?php bloginfo('charset'); ?>">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <?php wp_head(); ?>
+</head>
+<body <?php body_class(); ?>>
+<?php wp_body_open(); ?>
 <main class="detailflow-page">
 <nav class="detailflow-nav"><a href="<?php echo esc_url(home_url('/')); ?>" class="detailflow-brand"><span class="brand-signature"><img class="brand-apple" src="https://raw.githubusercontent.com/lukaszst-cz/zielona-marka-pl/main/public/logo-zielona-marka-transparent-v1.png" alt=""><span class="brand-wordmark"><b>ZIELONA</b><b>MARKA</b><small>STRONY WWW I SYSTEMY DLA FIRM</small></span></span></a><a href="<?php echo esc_url(home_url('/realizacje')); ?>">← Wszystkie realizacje</a></nav>
 <header class="detailflow-hero"><div><p>REALIZACJA KONCEPCYJNA · AUTO DETAILING</p><h1>Detail<span>Flow</span></h1><h2>Studio pracuje na autach.<br>System pilnuje reszty.</h2><p class="detailflow-lead">Jedno miejsce dla zapytań, rezerwacji, kart pojazdów, zdjęć, checklist, płatności i opieki po odbiorze. Zaprojektowane pod codzienność studia detailingu, nie pod ogólny arkusz.</p><div class="detailflow-actions"><a href="#system">Zobacz system <b>↓</b></a><a href="<?php echo esc_url(home_url('/kontakt')); ?>">Porozmawiajmy o wdrożeniu <b>↗</b></a></div></div><section class="detailflow-dashboard"><header><span>DETAILFLOW / DZISIAJ</span><b>08:30 · piątek</b></header><div class="detailflow-metrics"><article><small>OBŁOŻENIE</small><strong>82%</strong><i>+ 9% / tydz.</i></article><article><small>W TOKU</small><strong>06</strong><i>zleceń</i></article><article><small>ODBIORY</small><strong>03</strong><i>dzisiaj</i></article></div><div class="detailflow-job"><span></span><div><small>STANOWISKO 02 · REALIZACJA</small><b>BMW M4 Competition</b><p>korekta lakieru · powłoka ceramiczna</p></div><strong>14:30</strong></div><div class="detailflow-job"><span class="warm"></span><div><small>STANOWISKO 01 · PRZYJĘCIE</small><b>Volvo XC60</b><p>pakiet wnętrza · zabezpieczenie skóry</p></div><strong>10:00</strong></div><footer>Kontrola jakości: 4 z 6 etapów <i><b></b></i></footer></section></header>
@@ -8,3 +16,5 @@
 <section class="detailflow-quality"><div><p>JAKOŚĆ, KTÓRĄ MOŻNA UDOWODNIĆ</p><h2>Zdjęcia przed i po nie są dodatkiem. Są częścią zlecenia.</h2><p>Telefon detailera wystarcza, aby dołączyć zdjęcie elementu, oznaczyć etap i przekazać gotowy efekt do odbioru.</p></div><div class="detailflow-qa-card"><header><span>KARTA KONTROLI · BMW M4</span><b>GOTOWE 6/6</b></header><?php foreach(['Dokumentacja przyjęcia auta','Korekta lakieru','Aplikacja powłoki','Kontrola detali i szyb','Zdjęcia efektu','Zalecenia dla klienta'] as $i=>$item):?><p><b>✓</b><span><?php echo esc_html($item);?></span><small><?php echo $i===5?'wysłano':'zatwierdzone';?></small></p><?php endforeach;?><footer>Odbiór: dzisiaj, 14:30</footer></div></section>
 <section class="detailflow-cta"><p>DETAILFLOW · DEMONSTRACJA PROCESOWA</p><h2>Studio nie musi rosnąć przez dokładanie chaosu.</h2><p>Wdrożenie zaczyna się od mapy procesu, wybranych pakietów usług i rzeczywistych zasad pracy Twojego zespołu.</p><a href="<?php echo esc_url(home_url('/kontakt')); ?>">Chcę uporządkować studio <b>↗</b></a></section>
 </main><?php wp_footer(); ?>
+</body>
+</html>
