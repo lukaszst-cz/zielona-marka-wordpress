@@ -31,8 +31,8 @@ function zm_register_project_type(): void {
         'public' => true,
         'menu_icon' => 'dashicons-layout',
         'supports' => ['title', 'editor', 'excerpt', 'thumbnail', 'custom-fields'],
-        'has_archive' => true,
-        'rewrite' => ['slug' => 'realizacje'],
+        'has_archive' => false,
+        'rewrite' => ['slug' => 'projekt', 'with_front' => false],
         'show_in_rest' => true,
     ]);
 }
@@ -150,6 +150,42 @@ function zm_render_contact_form(bool $audit = false): void {
     </form>
     <?php
 }
+
+
+function zm_create_required_pages(): void {
+    $pages = [
+        'oferta' => 'Oferta',
+        'modernizacja-strony' => 'Modernizacja strony',
+        'realizacje' => 'Realizacje',
+        'maly-crm-dla-firm' => 'Mały CRM dla firm',
+        'usprawnienia-firmy' => 'Usprawnienia firmy',
+        'jak-pracuje' => 'Jak pracuję',
+        'kontakt' => 'Kontakt',
+        'polityka-prywatnosci' => 'Polityka prywatności',
+        'strony-dla-warsztatow' => 'Strony dla warsztatów',
+        'strony-dla-firm-uslugowych' => 'Strony dla firm usługowych',
+        'strony-dla-beauty' => 'Strony dla beauty',
+        'asystent-zapytan' => 'Asystent zapytań',
+        'strony-internetowe-marki' => 'Strony internetowe Marki',
+    ];
+
+    foreach ($pages as $slug => $title) {
+        if (get_page_by_path($slug)) {
+            continue;
+        }
+        wp_insert_post([
+            'post_type' => 'page',
+            'post_status' => 'publish',
+            'post_title' => $title,
+            'post_name' => $slug,
+            'post_content' => '',
+        ]);
+    }
+
+    update_option('show_on_front', 'posts');
+    flush_rewrite_rules();
+}
+add_action('after_switch_theme', 'zm_create_required_pages');
 
 function zm_excerpt_length(): int { return 22; }
 add_filter('excerpt_length', 'zm_excerpt_length');
