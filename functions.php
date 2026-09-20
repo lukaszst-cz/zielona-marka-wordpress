@@ -1,7 +1,7 @@
 <?php
 if (!defined('ABSPATH')) { exit; }
 
-define('ZM_VERSION', '1.0.0');
+define('ZM_VERSION', '1.1.0');
 
 function zm_setup(): void {
     add_theme_support('title-tag');
@@ -69,9 +69,9 @@ function zm_customize_register(WP_Customize_Manager $customizer): void {
         'priority' => 30,
     ]);
     $fields = [
-        'zm_email' => ['E-mail', 'kontakt@przyklad.pl', 'email'],
-        'zm_phone' => ['Telefon', '+48 000 000 000', 'text'],
-        'zm_instagram' => ['Adres profilu Instagram', '', 'url'],
+        'zm_email' => ['E-mail', 'kontakt@zielona-marka.pl', 'email'],
+        'zm_phone' => ['Telefon', '+48 450 458 466', 'text'],
+        'zm_instagram' => ['Adres profilu Instagram', 'https://www.instagram.com/zielona.marka.pl/', 'url'],
     ];
     foreach ($fields as $id => [$label, $default, $type]) {
         $customizer->add_setting($id, ['default' => $default, 'sanitize_callback' => $type === 'email' ? 'sanitize_email' : ($type === 'url' ? 'esc_url_raw' : 'sanitize_text_field')]);
@@ -89,6 +89,7 @@ function zm_handle_brief(): void {
     $name = sanitize_text_field(wp_unslash($_POST['name'] ?? ''));
     $email = sanitize_email(wp_unslash($_POST['email'] ?? ''));
     $company = sanitize_text_field(wp_unslash($_POST['company'] ?? ''));
+    $project_type = sanitize_text_field(wp_unslash($_POST['projectType'] ?? ''));
     $budget = sanitize_text_field(wp_unslash($_POST['budget'] ?? ''));
     $message = sanitize_textarea_field(wp_unslash($_POST['message'] ?? ''));
 
@@ -99,7 +100,7 @@ function zm_handle_brief(): void {
 
     $recipient = get_theme_mod('zm_email', get_option('admin_email'));
     $subject = sprintf(__('Nowy brief: %s', 'zielona-marka'), $company ?: $name);
-    $body = "Imię: {$name}\nE-mail: {$email}\nFirma: {$company}\nBudżet: {$budget}\n\nOpis projektu:\n{$message}";
+    $body = "Imię: {$name}\nE-mail: {$email}\nFirma: {$company}\nPotrzeba: {$project_type}\nBudżet: {$budget}\n\nOpis projektu:\n{$message}";
     $sent = wp_mail($recipient, $subject, $body, ['Reply-To: ' . $name . ' <' . $email . '>']);
     wp_safe_redirect(add_query_arg('brief', $sent ? 'sent' : 'error', wp_get_referer() ?: home_url('/')) . '#kontakt');
     exit;
@@ -114,10 +115,10 @@ function zm_schema(): void {
         '@type' => 'ProfessionalService',
         'name' => 'Zielona Marka',
         'url' => home_url('/'),
-        'email' => get_theme_mod('zm_email', 'kontakt@przyklad.pl'),
+        'email' => get_theme_mod('zm_email', 'kontakt@zielona-marka.pl'),
         'areaServed' => 'PL',
-        'description' => 'Projektowanie i wdrażanie stron internetowych dla firm.',
-        'serviceType' => ['Strony firmowe', 'Landing page', 'Portfolio', 'WordPress', 'SEO techniczne'],
+        'description' => 'Strony WWW, formularze wyceny, małe CRM-y i usprawnienia dla lokalnych firm usługowych.',
+        'serviceType' => ['Strony internetowe', 'Formularze wyceny', 'Mały CRM', 'WordPress', 'Lokalne SEO'],
     ];
     echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
 }
