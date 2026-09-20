@@ -1,3 +1,12 @@
+<!doctype html>
+<html <?php language_attributes(); ?>>
+<head>
+<meta charset="<?php bloginfo('charset'); ?>">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<?php wp_head(); ?>
+</head>
+<body <?php body_class(); ?>>
+<?php wp_body_open(); ?>
 <?php /* Production mirror: /demo/natura-strona */ ?>
 <main class="natura-site">
 <nav class="natura-nav">
@@ -21,3 +30,5 @@
 <footer class="natura-footer"><a class="natura-brand" href="<?php echo esc_url(home_url('/')); ?>"><i></i>NATURA <b>STUDIO</b></a><p>Projekt koncepcyjny Zielonej Marki.</p><a href="<?php echo esc_url(home_url('/demo/natura')); ?>">Zobacz zaplecze rezerwacji ↗</a></footer>
 </main>
 <?php wp_footer(); ?>
+</body>
+</html>
