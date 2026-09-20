@@ -1,3 +1,12 @@
+<!doctype html>
+<html <?php language_attributes(); ?>>
+<head>
+<meta charset="<?php bloginfo('charset'); ?>">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<?php wp_head(); ?>
+</head>
+<body <?php body_class(); ?>>
+<?php wp_body_open(); ?>
 <?php /* Production mirror: /demo/dom-strona */ ?>
 <main class="dom-site">
 <nav class="dom-nav"><a class="dom-brand" href="<?php echo esc_url(home_url('/')); ?>"><i>DD</i><span>DOM<br><b>DOBRY</b></span></a><div><a href="#inwestycja">Inwestycja</a><a href="#lokale">Lokale</a><a href="#standard">Standard</a><a href="<?php echo esc_url(home_url('/#realizacje')); ?>">Portfolio</a></div><a href="#kontakt">Zapytaj o lokal ↗</a></nav>
@@ -13,3 +22,5 @@
 <footer class="dom-footer"><a class="dom-brand" href="<?php echo esc_url(home_url('/')); ?>"><i>DD</i><span>DOM <b>DOBRY</b></span></a><p>Projekt koncepcyjny Zielonej Marki.</p><a href="<?php echo esc_url(home_url('/demo/dom')); ?>">Zobacz panel sprzedaży ↗</a></footer>
 </main>
 <?php wp_footer(); ?>
+</body>
+</html>
