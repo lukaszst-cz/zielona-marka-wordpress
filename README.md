@@ -1,30 +1,31 @@
-# Zielona Marka, motyw WordPress
+# Zielona Marka — motyw WordPress v2
 
-**Problem:** mała firma potrzebuje strony, którą może później samodzielnie uzupełniać, a która nadal wygląda indywidualnie i prowadzi klienta do kontaktu.
+Autorski motyw WordPress rozwijany jako odpowiednik serwisu **zielona-marka.pl**.
 
-**Rozwiązanie:** autorski motyw WordPress dla firmy usługowej lub portfolio, bez gotowego, przypadkowego szablonu.
+## Kierunek v2
 
-[Otwórz statyczny podgląd motywu](https://lukaszst-cz.github.io/zielona-marka-wordpress/preview/)
-
-## Co zawiera
-
-- własne szablony PHP i konfigurację `theme.json`;
-- typ treści **Realizacje** z polami klienta i zakresu;
-- stronę główną, archiwum realizacji, formularz kontaktowy i widok mobilny;
-- semantyczną strukturę, podstawy SEO i lekkie zasoby bez zewnętrznych fontów.
-
-## Wartość dla firmy
-
-- możliwość samodzielnego dodawania realizacji;
-- strona dopasowana do marki zamiast kolejnej kopii szablonu;
-- prosta ścieżka od wejścia na stronę do kontaktu;
-- baza do dalszej rozbudowy o SEO, blog lub dodatkowe usługi.
+- spokojniejszy, zielono-kremowy system wizualny zgodny z aktualnym kierunkiem marki;
+- strona główna prowadzona jako proces: **strona → zapytanie → kolejny krok**;
+- sekcje dla stron WWW, formularzy, małego sklepu/płatności, CRM i kontaktu po usłudze;
+- projekty demonstracyjne z typem treści **Realizacje**;
+- sekcja współpracy, opieki po publikacji i rozbudowany formularz briefu;
+- responsywność, dostępność, ograniczenie ruchu przez `prefers-reduced-motion`;
+- bez zewnętrznego buildera i bez obowiązkowych płatnych wtyczek.
 
 ## Instalacja
 
-1. W WordPressie wybierz **Wygląd → Motywy → Dodaj nowy → Wyślij motyw na serwer**.
-2. Wgraj `zielona-marka-wordpress.zip`, zainstaluj i aktywuj.
-3. W **Wygląd → Dostosuj → Zielona Marka, kontakt** wpisz prawdziwy e-mail, telefon i Instagram.
-4. W **Ustawienia → Bezpośrednie odnośniki** kliknij „Zapisz zmiany”.
+1. Pobierz repozytorium lub przygotuj ZIP z katalogu motywu.
+2. W WordPressie: **Wygląd → Motywy → Dodaj nowy → Wyślij motyw na serwer**.
+3. Aktywuj motyw **Zielona Marka Studio**.
+4. Ustaw menu główne i stronę prywatności.
+5. Sprawdź dane kontaktowe w konfiguracji motywu.
+6. Skonfiguruj SMTP przed produkcyjnym użyciem formularza.
+7. Zapisz ponownie **Ustawienia → Bezpośrednie odnośniki**.
 
-Formularz korzysta z `wp_mail()`; przed publikacją warto skonfigurować SMTP i wysłać wiadomość testową.
+## Rozwój
+
+Gałąź `rebuild-current-site-v2` zawiera przebudowę pod aktualny serwis. `main` pozostaje punktem odniesienia do czasu akceptacji i scalenia.
+
+## Repozytorium
+
+Kod motywu: PHP + CSS + JavaScript. WordPress core, baza danych, dane logowania i sekrety nie powinny trafiać do GitHuba.
