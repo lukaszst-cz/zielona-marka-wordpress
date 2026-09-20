@@ -1,3 +1,12 @@
+<!doctype html>
+<html <?php language_attributes(); ?>>
+<head>
+<meta charset="<?php bloginfo('charset'); ?>">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<?php wp_head(); ?>
+</head>
+<body <?php body_class(); ?>>
+<?php wp_body_open(); ?>
 <?php /* Production mirror: /demo/bistro-strona */ ?>
 <main class="bistro-site">
 <nav class="bistro-nav"><a class="bistro-wordmark" href="#start"><span>B</span>BISTRO FORMA</a><div><a href="#menu">Menu</a><a href="#historia">O nas</a><a href="#kontakt">Kontakt</a><a href="<?php echo esc_url(home_url('/#realizacje')); ?>">Portfolio</a><a href="<?php echo esc_url(home_url('/')); ?>">Zielona Marka</a></div><a class="bistro-book" href="#rezerwacja">Rezerwuj online</a></nav>
@@ -14,3 +23,5 @@
 <footer id="kontakt" class="bistro-footer"><div class="bistro-wordmark"><span>B</span>BISTRO FORMA</div><div><small>GODZINY</small><p>wt–czw 12:00–22:00<br>pt–sob 12:00–23:00<br>nd 12:00–20:00</p></div><div><small>KONTAKT Z REALIZATOREM</small><p><a href="<?php echo esc_url(home_url('/#kontakt')); ?>">Zielona Marka<br>strony i systemy dla firm ↗</a></p></div><div><small>PROJEKT DEMONSTRACYJNY</small><p>Projekt i realizacja:<br><a href="<?php echo esc_url(home_url('/#realizacje')); ?>">Zielona Marka ↗</a></p></div></footer>
 </main>
 <?php wp_footer(); ?>
+</body>
+</html>
