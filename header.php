@@ -1,27 +1,48 @@
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
-    <meta charset="<?php bloginfo('charset'); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php wp_head(); ?>
+  <meta charset="<?php bloginfo('charset'); ?>">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<a class="skip-link" href="#main"><?php esc_html_e('Przejdź do treści', 'zielona-marka'); ?></a>
-<header class="site-header" data-header>
-    <div class="wrap nav-wrap">
-        <a class="brand" href="<?php echo esc_url(home_url('/')); ?>" aria-label="Zielona Marka, strona główna">
-            <span class="brand-dot" aria-hidden="true"></span>
-            <span>ZIELONA<br>MARKA</span>
-        </a>
-        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span></span><span></span><span class="screen-reader-text"><?php esc_html_e('Otwórz menu', 'zielona-marka'); ?></span></button>
-        <nav id="site-menu" class="site-menu" aria-label="<?php esc_attr_e('Menu główne', 'zielona-marka'); ?>">
-            <?php if (has_nav_menu('primary')) :
-                wp_nav_menu(['theme_location' => 'primary', 'container' => false, 'items_wrap' => '<ul>%3$s</ul>']);
-            else : ?>
-                <ul><li><a href="<?php echo esc_url(home_url('/#portfolio')); ?>">Portfolio</a></li><li><a href="<?php echo esc_url(home_url('/#oferta')); ?>">Oferta</a></li><li><a href="<?php echo esc_url(home_url('/#proces')); ?>">Proces</a></li></ul>
-            <?php endif; ?>
-            <a class="nav-cta" href="<?php echo esc_url(home_url('/#kontakt')); ?>">Zacznijmy projekt <span>↗</span></a>
-        </nav>
+<header class="site-header">
+  <nav class="nav shell" aria-label="Główna nawigacja">
+    <a class="brand" href="<?php echo esc_url(home_url('/')); ?>" aria-label="Zielona Marka, strona główna">
+      <span class="brand-signature" role="img" aria-label="Zielona Marka">
+        <img class="brand-apple" src="https://raw.githubusercontent.com/lukaszst-cz/zielona-marka-pl/main/public/logo-zielona-marka-transparent-v1.png" alt="">
+        <span class="brand-wordmark"><b>ZIELONA</b><b>MARKA</b><small>STRONY WWW I SYSTEMY DLA FIRM</small></span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="<?php echo esc_url(home_url('/oferta')); ?>">Oferta</a>
+      <a href="<?php echo esc_url(home_url('/#dla-kogo')); ?>">Dla branż</a>
+      <a href="<?php echo esc_url(home_url('/modernizacja-strony')); ?>">Modernizacja</a>
+      <a href="<?php echo esc_url(home_url('/realizacje')); ?>">Realizacje</a>
+      <a href="<?php echo esc_url(home_url('/maly-crm-dla-firm')); ?>">Mały CRM</a>
+      <a href="<?php echo esc_url(home_url('/usprawnienia-firmy')); ?>">Usprawnienia</a>
+      <a href="<?php echo esc_url(home_url('/jak-pracuje')); ?>">Jak pracuję</a>
+      <a href="<?php echo esc_url(home_url('/kontakt')); ?>">Kontakt</a>
     </div>
+    <div class="language-switch" aria-label="Wybór języka">
+      <a class="active" href="<?php echo esc_url(home_url('/')); ?>" lang="pl">🇵🇱 <span>PL</span></a>
+      <a href="<?php echo esc_url(home_url('/en')); ?>" lang="en">🇬🇧 <span>EN</span></a>
+    </div>
+    <a class="button button-small" href="<?php echo esc_url(home_url('/kontakt')); ?>">Wyceń projekt</a>
+    <details class="mobile-menu">
+      <summary>Menu <span aria-hidden="true">+</span></summary>
+      <div>
+        <a href="<?php echo esc_url(home_url('/oferta')); ?>">Oferta</a>
+        <a href="<?php echo esc_url(home_url('/#dla-kogo')); ?>">Dla branż</a>
+        <a href="<?php echo esc_url(home_url('/modernizacja-strony')); ?>">Modernizacja</a>
+        <a href="<?php echo esc_url(home_url('/realizacje')); ?>">Realizacje</a>
+        <a href="<?php echo esc_url(home_url('/maly-crm-dla-firm')); ?>">Mały CRM</a>
+        <a href="<?php echo esc_url(home_url('/usprawnienia-firmy')); ?>">Usprawnienia</a>
+        <a href="<?php echo esc_url(home_url('/jak-pracuje')); ?>">Jak pracuję</a>
+        <a href="<?php echo esc_url(home_url('/kontakt')); ?>">Kontakt i wycena</a>
+        <a href="<?php echo esc_url(home_url('/status')); ?>">Strefa klienta</a>
+      </div>
+    </details>
+  </nav>
 </header>
