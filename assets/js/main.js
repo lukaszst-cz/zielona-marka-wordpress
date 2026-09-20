@@ -1,33 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const toggle = document.querySelector('.menu-toggle');
-  const menu = document.querySelector('.site-menu');
-  if (toggle && menu) {
-    toggle.addEventListener('click', () => {
-      const open = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!open));
-      menu.classList.toggle('is-open', !open);
-      document.body.classList.toggle('menu-open', !open);
-    });
-    menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
-      toggle.setAttribute('aria-expanded', 'false');
-      menu.classList.remove('is-open');
-      document.body.classList.remove('menu-open');
-    }));
-  }
-
-  document.querySelectorAll('.service-item button').forEach((button) => {
-    button.addEventListener('click', () => {
-      const item = button.closest('.service-item');
-      const open = item.classList.toggle('is-open');
-      button.setAttribute('aria-expanded', String(open));
-      button.textContent = open ? '−' : '+';
+  document.querySelectorAll('.mobile-menu a').forEach((link) => {
+    link.addEventListener('click', () => {
+      const details = link.closest('details');
+      if (details) details.removeAttribute('open');
     });
   });
 
-  const header = document.querySelector('[data-header]');
-  if (header) {
-    const updateHeader = () => header.classList.toggle('is-scrolled', window.scrollY > 24);
-    updateHeader();
-    window.addEventListener('scroll', updateHeader, { passive: true });
-  }
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const id = link.getAttribute('href');
+      if (!id || id === '#') return;
+      const target = document.querySelector(id);
+      if (!target) return;
+      event.preventDefault();
+      target.scrollIntoView({behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+      history.replaceState(null, '', id);
+    });
+  });
 });
