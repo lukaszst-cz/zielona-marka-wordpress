@@ -1,10 +1,23 @@
 <footer class="site-footer">
-    <div class="wrap footer-grid">
-        <div><a class="footer-mark" href="<?php echo esc_url(home_url('/')); ?>">ZIELONA<br>MARKA<span>.</span></a><p>Projekt, treść i technologia<br>pracujące na Twój biznes.</p></div>
-        <div><span class="micro">NA SKRÓTY</span><a href="<?php echo esc_url(home_url('/#portfolio')); ?>">Portfolio</a><a href="<?php echo esc_url(home_url('/#oferta')); ?>">Oferta</a><a href="<?php echo esc_url(home_url('/#kontakt')); ?>">Kontakt</a></div>
-        <div><span class="micro">KONTAKT</span><a href="mailto:<?php echo esc_attr(get_theme_mod('zm_email', 'kontakt@przyklad.pl')); ?>"><?php echo esc_html(get_theme_mod('zm_email', 'kontakt@przyklad.pl')); ?></a><a href="tel:<?php echo esc_attr(preg_replace('/\s+/', '', get_theme_mod('zm_phone', '+48 000 000 000'))); ?>"><?php echo esc_html(get_theme_mod('zm_phone', '+48 000 000 000')); ?></a></div>
+  <div class="shell footer-grid">
+    <a class="brand" href="<?php echo esc_url(home_url('/')); ?>">
+      <span class="brand-signature" role="img" aria-label="Zielona Marka">
+        <img class="brand-apple" src="https://raw.githubusercontent.com/lukaszst-cz/zielona-marka-pl/main/public/logo-zielona-marka-transparent-v1.png" alt="">
+        <span class="brand-wordmark"><b>ZIELONA</b><b>MARKA</b><small>STRONY WWW I SYSTEMY DLA FIRM</small></span>
+      </span>
+    </a>
+    <p>Strony WWW, formularze wyceny i systemy, które porządkują codzienną pracę firm.</p>
+    <div>
+      <a href="<?php echo esc_url(home_url('/oferta')); ?>">Oferta</a>
+      <a href="<?php echo esc_url(home_url('/realizacje')); ?>">Realizacje</a>
+      <a href="<?php echo esc_url(home_url('/status')); ?>">Status projektu</a>
+      <a href="https://www.facebook.com/StudioGraficzneZielonaMarka" target="_blank" rel="noreferrer">Facebook ↗</a>
+      <a href="https://www.instagram.com/zielona.marka.pl/" target="_blank" rel="noreferrer">Instagram ↗</a>
+      <a href="<?php echo esc_url(home_url('/jak-pracuje')); ?>">Jak pracuję</a>
+      <a href="<?php echo esc_url(home_url('/polityka-prywatnosci')); ?>">Prywatność</a>
     </div>
-    <div class="wrap footer-bottom"><span>© <?php echo esc_html(wp_date('Y')); ?> ZIELONA MARKA</span><a href="<?php echo esc_url(get_privacy_policy_url()); ?>">Polityka prywatności</a><span>WARSZAWA / ONLINE</span></div>
+    <small>© <?php echo esc_html(wp_date('Y')); ?> Zielona Marka</small>
+  </div>
 </footer>
 <?php wp_footer(); ?>
 </body>
