@@ -15,7 +15,16 @@ function zm_setup(): void {
 add_action('after_setup_theme', 'zm_setup');
 
 function zm_assets(): void {
-    wp_enqueue_style('zm-main', get_template_directory_uri() . '/assets/css/main.css', [], ZM_VERSION);
+    if (is_front_page()) {
+        wp_enqueue_style(
+            'zm-production-home',
+            'https://zielona-marka.pl/_next/static/css/index.DSDKteEL.css',
+            [],
+            null
+        );
+    } else {
+        wp_enqueue_style('zm-main', get_template_directory_uri() . '/assets/css/main.css', [], ZM_VERSION);
+    }
     if (is_page('detailflow')) {
         wp_enqueue_style('zm-detailflow', get_template_directory_uri() . '/assets/css/detailflow.css', ['zm-main'], ZM_VERSION);
     }
@@ -94,6 +103,7 @@ function zm_handle_brief(): void {
     $company = sanitize_text_field(wp_unslash($_POST['company'] ?? ''));
     $project_type = sanitize_text_field(wp_unslash($_POST['projectType'] ?? ''));
     $budget = sanitize_text_field(wp_unslash($_POST['budget'] ?? ''));
+    $timeline = sanitize_text_field(wp_unslash($_POST['timeline'] ?? ''));
     $message = sanitize_textarea_field(wp_unslash($_POST['message'] ?? ''));
     $website = esc_url_raw(wp_unslash($_POST['website'] ?? ''));
     $audit = !empty($_POST['audit']);
@@ -113,7 +123,7 @@ function zm_handle_brief(): void {
 
     $recipient = get_theme_mod('zm_email', get_option('admin_email'));
     $subject = sprintf(__('Nowy brief: %s', 'zielona-marka'), $company ?: $name);
-    $body = "Imię: {$name}\nE-mail: {$email}\nFirma: {$company}\nPotrzeba: {$project_type}\nAdres strony: {$website}\nTryb minioceny: " . ($audit ? 'tak' : 'nie') . "\nBudżet: {$budget}\n\nOpis projektu:\n{$message}";
+    $body = "Imię: {$name}\nE-mail: {$email}\nTelefon: {$phone}\nFirma: {$company}\nPotrzeba: {$project_type}\nAdres strony: {$website}\nPlanowany termin: {$timeline}\nTryb minioceny: " . ($audit ? 'tak' : 'nie') . "\nBudżet: {$budget}\n\nOpis projektu:\n{$message}";
     $sent = wp_mail($recipient, $subject, $body, ['Reply-To: ' . $name . ' <' . $email . '>']);
     wp_safe_redirect(add_query_arg('brief', $sent ? 'sent' : 'error', wp_get_referer() ?: home_url('/')) . '#kontakt');
     exit;
