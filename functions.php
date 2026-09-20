@@ -254,3 +254,9 @@ add_action('after_switch_theme', 'zm_create_required_pages');
 
 function zm_excerpt_length(): int { return 22; }
 add_filter('excerpt_length', 'zm_excerpt_length');
+
+
+function zm_front_admin_bar(bool $show): bool {
+    return is_front_page() ? false : $show;
+}
+add_filter('show_admin_bar', 'zm_front_admin_bar');
