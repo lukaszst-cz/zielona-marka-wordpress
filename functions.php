@@ -94,6 +94,14 @@ function zm_handle_brief(): void {
     $message = sanitize_textarea_field(wp_unslash($_POST['message'] ?? ''));
     $website = esc_url_raw(wp_unslash($_POST['website'] ?? ''));
     $audit = !empty($_POST['audit']);
+    $assistant_goal = sanitize_text_field(wp_unslash($_POST['assistantGoal'] ?? ''));
+    $assistant_industry = sanitize_text_field(wp_unslash($_POST['assistantIndustry'] ?? ''));
+    $phone = sanitize_text_field(wp_unslash($_POST['phone'] ?? ''));
+
+    if ($assistant_goal || $assistant_industry) {
+        $message = "Asystent demonstracyjny\nCel: {$assistant_goal}\nBranża: {$assistant_industry}\nTelefon: " . ($phone ?: 'nie podano') . "\n\n" . ($message ?: 'Prośba o kontakt.');
+        $project_type = 'Asystent dla firmy';
+    }
 
     if (!$name || !is_email($email) || !$message) {
         wp_safe_redirect(add_query_arg('brief', 'error', wp_get_referer() ?: home_url('/')) . '#kontakt');
