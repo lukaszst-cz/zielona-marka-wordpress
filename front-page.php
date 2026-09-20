@@ -9,8 +9,8 @@ $problems = [
 ];
 
 $projects = [
-  ['04','Auto Naprawa','Warsztat i obsługa klienta','Projekt koncepcyjny / demonstracja','Strona warsztatu, portal klienta, kosztorysy, faktury i widok dla kierownika.','https://lukaszst-cz.github.io/operations-office-portfolio/auto-naprawa-preview/assets/workshop-hero.png','https://lukaszst-cz.github.io/operations-office-portfolio/auto-naprawa-preview/'],
   ['01','Natura Studio','Wellness i uroda','Projekt koncepcyjny / demonstracja','Spokojna strona usługowa z prostą drogą do kontaktu i rezerwacji.','https://raw.githubusercontent.com/lukaszst-cz/zielona-marka-pl/main/public/concept-natura.jpg','/demo/natura-strona'],
+  ['04','Auto Naprawa','Warsztat i obsługa klienta','Projekt koncepcyjny / demonstracja','Strona warsztatu, portal klienta, kosztorysy, faktury i widok dla kierownika.','https://lukaszst-cz.github.io/operations-office-portfolio/auto-naprawa-preview/assets/workshop-hero.png','https://lukaszst-cz.github.io/operations-office-portfolio/auto-naprawa-preview/'],
   ['05','TransportFlow','Transport i logistyka','Projekt koncepcyjny / demonstracja','Demonstracyjny system TMS i CRM: zlecenia, kierowcy, dokumenty oraz wyniki firmy.','https://raw.githubusercontent.com/lukaszst-cz/zielona-marka-pl/main/public/og.png','/realizacje/transportflow'],
   ['06','DetailFlow','Auto detailing','Projekt koncepcyjny / demonstracja','System dla zapytań, stanowisk, kontroli jakości, zdjęć, płatności i powrotów klientów.','https://raw.githubusercontent.com/lukaszst-cz/zielona-marka-pl/main/public/og.png','/realizacje/detailflow'],
 ];
@@ -95,8 +95,8 @@ $brief_status = sanitize_key(wp_unslash($_GET['brief'] ?? ''));
   </section>
 
   <section class="asystent-band dark-section"><div class="shell asystent-band-grid">
-    <div><span class="section-no">ASYSTENT DEMONSTRACYJNY</span><h2>Najpierw wypróbuj go <em>na naszej stronie.</em></h2><p>Asystent pokaże, jak rozpoznać potrzebę klienta, zebrać kontakt i przekazać uporządkowane zgłoszenie.</p></div>
-    <div><a class="button button-light" href="<?php echo esc_url(home_url('/asystent-zapytan')); ?>">Uruchom asystenta <span>↗</span></a><a href="<?php echo esc_url(home_url('/asystent-zapytan')); ?>">Jak działa wdrożenie <span>→</span></a></div>
+    <div><span class="section-no">ASYSTENT DEMONSTRACYJNY</span><h2>Najpierw wypróbuj go <em>na naszej stronie.</em></h2><p>Asystent w prawym dolnym rogu pokaże, jak rozpoznać potrzebę klienta, zebrać kontakt i przekazać uporządkowane zgłoszenie.</p></div>
+    <div><button class="button button-light" type="button" data-open-demo-kontakt>Uruchom asystenta <span>↗</span></button><a href="<?php echo esc_url(home_url('/asystent-zapytan')); ?>">Jak działa wdrożenie <span>→</span></a></div>
   </div></section>
 
   <section class="section crm-home"><div class="shell crm-home-grid">
