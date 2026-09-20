@@ -1,7 +1,7 @@
 <?php
 if (!defined('ABSPATH')) { exit; }
 
-define('ZM_VERSION', '1.0.0');
+define('ZM_VERSION', '2.0.0');
 
 function zm_setup(): void {
     add_theme_support('title-tag');
@@ -69,8 +69,8 @@ function zm_customize_register(WP_Customize_Manager $customizer): void {
         'priority' => 30,
     ]);
     $fields = [
-        'zm_email' => ['E-mail', 'kontakt@przyklad.pl', 'email'],
-        'zm_phone' => ['Telefon', '+48 000 000 000', 'text'],
+        'zm_email' => ['E-mail', 'kontakt@zielona-marka.pl', 'email'],
+        'zm_phone' => ['Telefon', '+48 450 458 466', 'text'],
         'zm_instagram' => ['Adres profilu Instagram', '', 'url'],
     ];
     foreach ($fields as $id => [$label, $default, $type]) {
@@ -114,7 +114,7 @@ function zm_schema(): void {
         '@type' => 'ProfessionalService',
         'name' => 'Zielona Marka',
         'url' => home_url('/'),
-        'email' => get_theme_mod('zm_email', 'kontakt@przyklad.pl'),
+        'email' => get_theme_mod('zm_email', 'kontakt@zielona-marka.pl'),
         'areaServed' => 'PL',
         'description' => 'Projektowanie i wdrażanie stron internetowych dla firm.',
         'serviceType' => ['Strony firmowe', 'Landing page', 'Portfolio', 'WordPress', 'SEO techniczne'],
