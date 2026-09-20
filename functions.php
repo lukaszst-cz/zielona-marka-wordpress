@@ -179,6 +179,7 @@ function zm_create_required_pages(): void {
         'asystent-zapytan' => 'Asystent zapytań',
         'strony-internetowe-marki' => 'Strony internetowe Marki',
         'en' => 'English',
+        'status' => 'Status projektu',
         'demo' => 'Demo',
     ];
 
@@ -203,6 +204,9 @@ function zm_create_required_pages(): void {
             'natura-strona' => 'Natura Studio — demo strony',
             'bistro-strona' => 'Bistro Forma — demo strony',
             'dom-strona' => 'Dom Dobry — demo strony',
+            'natura' => 'Natura Studio — zaplecze',
+            'bistro' => 'Bistro Forma — zaplecze',
+            'dom' => 'Dom Dobry — zaplecze',
         ],
         'realizacje' => [
             'natura-studio' => 'Natura Studio',
