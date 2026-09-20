@@ -65,7 +65,7 @@ $brief_status = sanitize_key(wp_unslash($_GET['brief'] ?? ''));
     <div class="section-head"><div><span class="section-no">PROJEKTY DEMONSTRACYJNE</span><h2>Zobacz stronę i proces, zanim porozmawiamy o wdrożeniu.</h2></div><p>Każdy projekt pokazowy jest jasno oznaczony. Demonstracje nie są przedstawiane jako realizacje prawdziwych klientów.</p></div>
     <div class="project-preview-grid">
       <?php foreach ($projects as $project) :
-        $href = str_starts_with($project[6], 'http') ? $project[6] : home_url($project[6]); ?>
+        $href = strpos($project[6], 'http') === 0 ? $project[6] : home_url($project[6]); ?>
         <article class="project-preview">
           <div class="project-preview-image" style="background-image:linear-gradient(180deg,rgba(10,31,22,.08),rgba(10,31,22,.78)),url('<?php echo esc_url($project[5]); ?>')"><span><?php echo esc_html($project[3]); ?></span><b><?php echo esc_html($project[0]); ?></b></div>
           <div><small><?php echo esc_html($project[2]); ?></small><h3><?php echo esc_html($project[1]); ?></h3><p><?php echo esc_html($project[4]); ?></p><a href="<?php echo esc_url($href); ?>">Zobacz demonstrację <b>↗</b></a></div>
