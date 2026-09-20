@@ -92,6 +92,8 @@ function zm_handle_brief(): void {
     $project_type = sanitize_text_field(wp_unslash($_POST['projectType'] ?? ''));
     $budget = sanitize_text_field(wp_unslash($_POST['budget'] ?? ''));
     $message = sanitize_textarea_field(wp_unslash($_POST['message'] ?? ''));
+    $website = esc_url_raw(wp_unslash($_POST['website'] ?? ''));
+    $audit = !empty($_POST['audit']);
 
     if (!$name || !is_email($email) || !$message) {
         wp_safe_redirect(add_query_arg('brief', 'error', wp_get_referer() ?: home_url('/')) . '#kontakt');
@@ -100,7 +102,7 @@ function zm_handle_brief(): void {
 
     $recipient = get_theme_mod('zm_email', get_option('admin_email'));
     $subject = sprintf(__('Nowy brief: %s', 'zielona-marka'), $company ?: $name);
-    $body = "Imię: {$name}\nE-mail: {$email}\nFirma: {$company}\nPotrzeba: {$project_type}\nBudżet: {$budget}\n\nOpis projektu:\n{$message}";
+    $body = "Imię: {$name}\nE-mail: {$email}\nFirma: {$company}\nPotrzeba: {$project_type}\nAdres strony: {$website}\nTryb minioceny: " . ($audit ? 'tak' : 'nie') . "\nBudżet: {$budget}\n\nOpis projektu:\n{$message}";
     $sent = wp_mail($recipient, $subject, $body, ['Reply-To: ' . $name . ' <' . $email . '>']);
     wp_safe_redirect(add_query_arg('brief', $sent ? 'sent' : 'error', wp_get_referer() ?: home_url('/')) . '#kontakt');
     exit;
@@ -123,6 +125,31 @@ function zm_schema(): void {
     echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
 }
 add_action('wp_head', 'zm_schema', 30);
+
+
+function zm_render_contact_form(bool $audit = false): void {
+    $brief_status = sanitize_key(wp_unslash($_GET['brief'] ?? ''));
+    if ($brief_status === 'sent') {
+        echo '<div class="form-success" role="status"><b>Dziękuję, wiadomość została wysłana.</b><p>Wrócę z propozycją kolejnego kroku i wstępną wyceną.</p></div>';
+        return;
+    }
+    ?>
+    <form class="contact-form" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
+        <input type="hidden" name="action" value="zm_send_brief">
+        <input type="hidden" name="audit" value="<?php echo $audit ? '1' : '0'; ?>">
+        <?php wp_nonce_field('zm_send_brief', 'zm_brief_nonce'); ?>
+        <label>Imię<input required name="name" placeholder="Jak masz na imię?" autocomplete="name"></label>
+        <label>E-mail<input required type="email" name="email" placeholder="twoj@email.pl" autocomplete="email"></label>
+        <label>Firma <span>(opcjonalnie)</span><input name="company" placeholder="Nazwa firmy" autocomplete="organization"></label>
+        <?php if ($audit) : ?><label>Adres obecnej strony <span>(opcjonalnie)</span><input name="website" type="url" placeholder="https://twoja-strona.pl"></label><?php endif; ?>
+        <label>Czego potrzebujesz?<select required name="projectType"><option value="" disabled selected>Wybierz najbliższą odpowiedź</option><option>Strona dla warsztatu lub detailingu</option><option>Strona dla firmy remontowej lub instalatora</option><option>Strona dla beauty lub usług na termin</option><option>Nowa strona dla innej firmy usługowej</option><option>Modernizacja obecnej strony</option><option>Formularz wyceny lub zgłoszenia</option><option>Mały CRM do klientów i zleceń</option><option>Asystent dla firmy</option><option>Potrzebuję krótkiej konsultacji</option></select></label>
+        <label class="form-wide">Co dziś nie działa albo jaki efekt chcesz osiągnąć?<textarea required name="message" rows="5" placeholder="Np. mam starą stronę, klienci nie dzwonią, chcę sprzedawać kilka produktów…"></textarea></label>
+        <label class="form-consent form-wide"><input required type="checkbox" name="consent" value="yes"> <span>Zapoznałem/-am się z <a href="<?php echo esc_url(home_url('/polityka-prywatnosci')); ?>">polityką prywatności</a> i proszę o kontakt.</span></label>
+        <button class="button form-wide" type="submit"><?php echo $audit ? 'Poproś o miniocenę' : 'Wyślij brief'; ?> <span>↗</span></button>
+        <?php if ($brief_status === 'error') : ?><p class="form-error form-wide" role="alert">Nie udało się wysłać wiadomości. Napisz bezpośrednio na kontakt@zielona-marka.pl.</p><?php endif; ?>
+    </form>
+    <?php
+}
 
 function zm_excerpt_length(): int { return 22; }
 add_filter('excerpt_length', 'zm_excerpt_length');
