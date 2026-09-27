@@ -431,3 +431,24 @@ body.admin-bar .site-header{top:32px}
 .local-area-links a:hover{background:#e8efdf;color:#245235}
 @media(max-width:900px){.local-area-links{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:620px){.local-area-links{grid-template-columns:1fr}}
+
+
+/* Industry landing production sync */
+.industry-practice{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.industry-practice h2{font:400 clamp(42px,5vw,68px)/.96 Georgia,serif;letter-spacing:-.05em;margin:14px 0}
+.industry-practice p{line-height:1.7;color:#56665d}
+.leadflow-demo h3{font:400 30px/1.05 Georgia,serif;margin:12px 0}
+.leadflow-demo .demo-result{margin:16px 0 0;padding:12px 14px;border-radius:10px;background:#e6efdc;color:#244731;font-size:12px;font-weight:800}
+.industry-flow-section{padding-top:90px;padding-bottom:100px}
+.industry-flow-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(17,57,39,.16);margin:38px 0 0}
+.industry-flow-tabs button{display:flex;flex-direction:column;gap:10px;min-height:110px;padding:20px;text-align:left;border:0;background:#f8f9f4;color:var(--ink);cursor:pointer}
+.industry-flow-tabs button b{font-size:10px;color:var(--green);letter-spacing:.12em}
+.industry-flow-tabs button.active{background:#123727;color:#fff}
+.industry-flow-tabs button.active b{color:var(--lime)}
+.industry-flow-panel{padding:34px;border:1px solid rgba(17,57,39,.16);border-top:0}
+.industry-flow-panel>span,.industry-flow-panel>small{font-size:10px;letter-spacing:.12em;font-weight:900;color:var(--green)}
+.industry-flow-panel h3{font:400 34px Georgia,serif;margin:12px 0}
+.industry-flow-panel p{max-width:720px;line-height:1.65;color:#57675e}
+.industry-flow-panel>b{display:block;margin-top:8px;font-size:16px}
+@media(max-width:900px){.industry-practice{grid-template-columns:1fr;gap:35px}.industry-flow-tabs{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.industry-flow-tabs{grid-template-columns:1fr}}
