@@ -382,3 +382,12 @@ body.admin-bar .site-header{top:32px}
 .qa-report-card>footer h3{margin:0 0 10px;font:400 26px Georgia,serif}
 .qa-report-card>footer p{margin:0;line-height:1.65;color:#526159}
 @media(max-width:700px){.qa-report-card>header,.qa-report-meta{grid-template-columns:1fr}.qa-report-card>header b{text-align:left}.qa-report-card article{grid-template-columns:50px 1fr}.qa-report-card article>strong{grid-column:2}}
+
+
+/* Contact person block */
+.contact-person{margin:48px 0 0;display:grid;grid-template-columns:minmax(180px,.75fr) 1.25fr;gap:24px;align-items:center;border-top:1px solid rgba(17,57,39,.16);padding-top:26px}
+.contact-person img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:18px}
+.contact-person figcaption{margin:0}
+.contact-person h3{font:400 30px/1.05 Georgia,serif;margin:10px 0 12px}
+.contact-person p{margin:0;line-height:1.65}
+@media(max-width:700px){.contact-person{grid-template-columns:1fr}.contact-person img{max-height:330px}}
