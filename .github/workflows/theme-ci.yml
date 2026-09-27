@@ -5,8 +5,12 @@ on:
     branches: [main]
   pull_request:
 
+concurrency:
+  group: wordpress-theme-ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  php-lint:
+  theme-checks:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,3 +19,109 @@ jobs:
           php-version: '8.3'
       - name: Lint PHP files
         run: find . -name "*.php" -print0 | xargs -0 -n1 php -l
+      - name: Verify migration files
+        run: |
+          test -s front-page.php
+          test -s page-oferta.php
+          test -s page-lokalna.php
+          test -s page-jak-pracuje.php
+          test -s page-raport-qa.php
+          test -s inc/client-status.php
+          test -s inc/studio.php
+          test -s inc/mail.php
+          test -s page-studio.php
+          test -s page-umowa-przykladowa.php
+          test -s page-transport.php
+          test -s status-client.php
+          test -s status-contract.php
+          test -s status-qa.php
+          test -s assets/css/live-home.css
+          test -s assets/css/production-parity.css
+          test -s assets/js/live-home.js
+          test -s scripts/runtime-smoke.mjs
+      - name: Verify key routes and hooks
+        run: |
+          grep -Fq "zm_local_landing_template" functions.php
+          grep -Fq "inc/client-status.php" functions.php
+          grep -Fq "inc/studio.php" functions.php
+          grep -Fq "inc/mail.php" functions.php
+          grep -Fq "mail.cba.pl" inc/mail.php
+          grep -Fq "587" inc/mail.php
+          grep -Fq "zm_store_inquiry" functions.php
+          grep -Fq "zm_register_status_routes" inc/client-status.php
+          grep -Fq "status/([^/]+)/umowa" inc/client-status.php
+          grep -Fq "status/([^/]+)/qa" inc/client-status.php
+          grep -Fq "chatbot-dla-firm" functions.php
+          grep -Fq "define('ZM_VERSION', '1.4.4');" functions.php
+          grep -Fq "transport" page-transport.php
+      - name: Verify local CSS assets
+        run: |
+          python - <<'PY'
+          import pathlib, re, sys
+          root = pathlib.Path('.')
+          missing = []
+          for css in root.glob('assets/css/*.css'):
+              text = css.read_text(encoding='utf-8')
+              for raw in re.findall(r'url\((?:[\'"]?)([^)\'"]+)', text):
+                  if raw.startswith(('http://','https://','data:','#','/')):
+                      continue
+                  target = (css.parent / raw).resolve()
+                  if not target.exists():
+                      missing.append(f"{css}: {raw}")
+          if missing:
+              print("\n".join(missing))
+              sys.exit(1)
+          PY
+      - name: Validate Playground blueprints
+        run: |
+          python -m json.tool blueprint.json >/dev/null
+          python -m json.tool blueprint-preview.json >/dev/null
+          python -m json.tool blueprint-ci.json >/dev/null
+          grep -Fq "sync-live-1to1-2026-09-27" blueprint-preview.json
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install WordPress Playground CLI
+        run: npm install --no-save @wp-playground/cli@latest
+      - name: Runtime WordPress smoke tests
+        run: node scripts/runtime-smoke.mjs
+
+      - name: Build installable theme package
+        run: |
+          rm -rf dist
+          mkdir -p dist/zielona-marka
+          rsync -a ./ dist/zielona-marka/ \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            --exclude 'node_modules/' \
+            --exclude 'scripts/' \
+            --exclude 'preview/' \
+            --exclude 'visual-qa/' \
+            --exclude 'dist/' \
+            --exclude 'blueprint*.json' \
+            --exclude 'README.md' \
+            --exclude 'index.html' \
+            --exclude 'package.json' \
+            --exclude 'package-lock.json'
+          cd dist
+          zip -qr zielona-marka-wordpress-1.4.4.zip zielona-marka
+      - name: Verify installable theme package
+        run: |
+          ZIP="dist/zielona-marka-wordpress-1.4.4.zip"
+          zipinfo -1 "$ZIP" | grep -Fq "zielona-marka/style.css"
+          zipinfo -1 "$ZIP" | grep -Fq "zielona-marka/functions.php"
+          zipinfo -1 "$ZIP" | grep -Fq "zielona-marka/inc/mail.php"
+          if zipinfo -1 "$ZIP" | grep -E '(^|/)(node_modules|\.github|scripts|preview|visual-qa)(/|$)|blueprint.*\.json$|README\.md$|package(-lock)?\.json$|/index\.html$'; then
+            echo "Development files found in installable package."
+            exit 1
+          fi
+          SIZE=$(stat -c%s "$ZIP")
+          test "$SIZE" -lt 50000000 || { echo "Theme package is unexpectedly large: $SIZE bytes"; exit 1; }
+      - name: Upload installable theme package
+        uses: actions/upload-artifact@v4
+        with:
+          name: zielona-marka-wordpress-1.4.4
+          path: dist/zielona-marka-wordpress-1.4.4.zip
+          if-no-files-found: error
+          retention-days: 14

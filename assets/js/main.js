@@ -429,3 +429,119 @@ document.addEventListener('DOMContentLoaded', () => {
     refreshStats();
   });
 });
+
+
+  document.querySelectorAll('.leadflow-demo [data-demo-submit]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const form = button.closest('form');
+      const demo = button.closest('.leadflow-demo');
+      const result = demo ? demo.querySelector('[data-demo-result]') : null;
+      if (form && !form.reportValidity()) return;
+      if (result) {
+        result.hidden = false;
+        result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  });
+
+  document.querySelectorAll('[data-workshop-flow]').forEach((flow) => {
+    const steps = [
+      ['Nowe zgłoszenie','Klient podaje auto, problem, zdjęcia i dogodny termin.','Właściwa informacja trafia do właściwej osoby.'],
+      ['Wstępna ocena','Warsztat sprawdza opis i materiały, a następnie decyduje, czy potrzebna jest rozmowa, diagnostyka czy od razu termin.','Mniej telefonów bez kompletu danych i szybsza pierwsza decyzja.'],
+      ['Termin lub wycena','Klient otrzymuje proponowany termin albo informację, czego potrzeba do przygotowania wyceny.','Każda sprawa ma widoczny następny krok.'],
+      ['Status sprawy','Po przyjęciu zlecenia firma może oznaczyć etap: umówione, w realizacji, gotowe lub zakończone.','Klient i zespół wiedzą, co dzieje się dalej.']
+    ];
+    const title=flow.querySelector('[data-flow-title]');
+    const copy=flow.querySelector('[data-flow-copy]');
+    const result=flow.querySelector('[data-flow-result]');
+    flow.querySelectorAll('[data-flow-step]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const index=Number(button.getAttribute('data-flow-step') || 0);
+        flow.querySelectorAll('[data-flow-step]').forEach((item) => item.classList.toggle('active', item === button));
+        if(title) title.textContent=steps[index][0];
+        if(copy) copy.textContent=steps[index][1];
+        if(result) result.textContent=steps[index][2];
+      });
+    });
+  });
+
+
+document.querySelectorAll('[data-transport-demo]').forEach((demo) => {
+  const stages = ['Nowe','Wycena','Przypisane','W trasie','Dostarczone','Faktura'];
+  const ordersWrap = demo.querySelector('[data-transport-orders]');
+  const log = demo.querySelector('[data-transport-log]');
+
+  const addLog = (message) => {
+    if (!log) return;
+    const p = document.createElement('p');
+    p.innerHTML = '<i></i> ' + message;
+    log.prepend(p);
+    while (log.children.length > 6) log.removeChild(log.lastElementChild);
+  };
+
+  const refresh = () => {
+    const orders = Array.from(demo.querySelectorAll('[data-transport-order]'));
+    const active = orders.filter((row) => Number(row.getAttribute('data-stage') || 0) < 4).length;
+    const revenue = orders.reduce((sum,row) => sum + Number(row.getAttribute('data-value') || 0),0);
+    const ontime = orders.length ? Math.round(orders.filter(row => row.getAttribute('data-ontime') === '1').length / orders.length * 100) : 0;
+    const docs = orders.filter(row => Number(row.getAttribute('data-stage') || 0) >= 4).length;
+    const values = {
+      active: String(active),
+      revenue: new Intl.NumberFormat('pl-PL').format(revenue) + ' zł',
+      ontime: ontime + '%',
+      documents: docs + '/' + orders.length
+    };
+    Object.entries(values).forEach(([key,value]) => {
+      const node = demo.querySelector('[data-transport-kpi="' + key + '"]');
+      if (node) node.textContent = value;
+    });
+  };
+
+  const bind = (row) => {
+    const button = row.querySelector('[data-transport-advance]');
+    if (!button) return;
+    button.addEventListener('click', () => {
+      const current = Number(row.getAttribute('data-stage') || 0);
+      const next = Math.min(stages.length - 1, current + 1);
+      row.setAttribute('data-stage', String(next));
+      const status = row.querySelector('[data-transport-stage]');
+      const bar = row.querySelector('[data-transport-bar]');
+      if (status) {
+        status.textContent = stages[next];
+        status.className = 'order-status s' + next;
+      }
+      if (bar) bar.style.width = (((next + 1) / stages.length) * 100) + '%';
+      if (next === stages.length - 1) {
+        button.disabled = true;
+        button.textContent = 'Zakończone';
+      }
+      const id = row.getAttribute('data-id') || 'Zlecenie';
+      const now = new Date().toLocaleTimeString('pl-PL',{hour:'2-digit',minute:'2-digit'});
+      addLog(now + ' · ' + id + ': ' + stages[next] + '. Klient i zespół otrzymali aktualizację');
+      refresh();
+    });
+  };
+
+  demo.querySelectorAll('[data-transport-order]').forEach(bind);
+
+  const add = demo.querySelector('[data-transport-add]');
+  if (add && ordersWrap) add.addEventListener('click', () => {
+    const count = demo.querySelectorAll('[data-transport-order]').length;
+    const id = 'ZT-' + (1052 + count);
+    const row = document.createElement('article');
+    row.className = 'order-row';
+    row.setAttribute('data-transport-order','');
+    row.setAttribute('data-id',id);
+    row.setAttribute('data-value','3200');
+    row.setAttribute('data-stage','0');
+    row.setAttribute('data-ontime','1');
+    row.innerHTML = '<div><b>' + id + '</b><small>Nowe zapytanie</small></div><div><strong>Warszawa → Kraków</strong><small>3 200 zł</small></div><span class="order-status s0" data-transport-stage>Nowe</span><div class="order-progress"><i data-transport-bar style="width:16.67%"></i></div><button type="button" data-transport-advance>Następny etap →</button>';
+    ordersWrap.appendChild(row);
+    bind(row);
+    const now = new Date().toLocaleTimeString('pl-PL',{hour:'2-digit',minute:'2-digit'});
+    addLog(now + ' · ' + id + ': formularz utworzył zlecenie i zadanie wyceny');
+    refresh();
+  });
+
+  refresh();
+});

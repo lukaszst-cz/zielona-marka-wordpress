@@ -1,4 +1,3 @@
-
 <div class="demo-kontakt" data-demo-assistant>
   <button class="demo-kontakt-trigger" type="button" data-demo-toggle aria-expanded="false" aria-controls="demo-kontakt-panel">
     <span aria-hidden="true">✦</span><b>Wypróbuj asystenta</b><small>demonstracja ZM</small>
@@ -6,7 +5,7 @@
   <section class="demo-kontakt-panel" id="demo-kontakt-panel" role="dialog" aria-label="Demonstracyjny asystent Zielonej Marki" hidden>
     <header><div><span>DEMO · ZIELONA MARKA</span><b>Asystent zapytań</b></div><button type="button" data-demo-close aria-label="Zamknij asystenta">×</button></header>
     <div class="demo-kontakt-body" aria-live="polite">
-      <div class="bot-message"><b>Cześć!</b><p>Jestem demonstracyjnym asystentem działającym według przygotowanego scenariusza. Pomogę określić, czego potrzebuje Twoja firma.</p><small>Nie udaję człowieka i nie podaję wiążącej wyceny.</small></div>
+      <div class="bot-message"><b>Cześć!</b><p>Jestem demonstracyjnym asystentem działającym według przygotowanego scenariusza. Pomogę określić, czego potrzebuje Twoja firma.</p><small>Demonstracja nie podaje wiążącej wyceny.</small></div>
       <div class="kontakt-step" data-demo-step="goal">
         <p>Co chcesz poprawić?</p>
         <div class="kontakt-options">
@@ -31,7 +30,6 @@
       </div>
       <div class="kontakt-step" data-demo-step="form" hidden>
         <div class="user-message" data-demo-industry-label></div>
-        <div class="bot-message" data-demo-prices hidden><p><b>Orientacyjnie:</b> ZM Start od 2 490 zł / 7 dni, LeadFlow od 4 490 zł / 10–14 dni, Flow AI od 6 900 zł / 14–21 dni.</p><small>30% na start, 70% po odbiorze i QA, przed publikacją na serwerze klienta.</small></div>
         <p>Zostaw kontakt. Zgłoszenie trafi do Zielonej Marki.</p>
         <form class="kontakt-lead-form" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post" data-demo-form>
           <input type="hidden" name="action" value="zm_send_brief">
@@ -48,31 +46,61 @@
         </form>
         <button class="kontakt-back" type="button" data-demo-back="industry">← Zmień branżę</button>
       </div>
-      <div class="kontakt-demo-links"><a href="<?php echo esc_url(home_url('/strony-dla-warsztatow')); ?>">Demo dla warsztatu</a><a href="<?php echo esc_url(home_url('/strony-dla-firm-uslugowych')); ?>">Demo dla wykonawcy</a><a href="<?php echo esc_url(home_url('/strony-dla-beauty')); ?>">Demo beauty</a></div>
     </div>
-    <footer>To demonstracja scenariusza. Wdrożenie AI wymaga zatwierdzonej bazy wiedzy i kontaktu z człowiekiem.</footer>
   </section>
 </div>
 
+<a class="whatsapp-float" href="https://wa.me/48450458466" target="_blank" rel="noreferrer" aria-label="Napisz do Zielonej Marki na WhatsApp">
+  <span aria-hidden="true">◌</span><b>Napisz na WhatsApp</b><small>Szybka wiadomość</small><i aria-hidden="true">↗</i>
+</a>
+
 <footer class="site-footer">
-  <div class="shell footer-grid">
-    <a class="brand" href="<?php echo esc_url(home_url('/')); ?>">
-      <span class="brand-signature" role="img" aria-label="Zielona Marka">
-        <img class="brand-apple" src="https://raw.githubusercontent.com/lukaszst-cz/zielona-marka-pl/main/public/logo-zielona-marka-transparent-v1.png" alt="">
-        <span class="brand-wordmark"><b>ZIELONA</b><b>MARKA</b><small>STRONY WWW I SYSTEMY DLA FIRM</small></span>
-      </span>
-    </a>
-    <p>Strony WWW, formularze wyceny i systemy, które porządkują codzienną pracę firm.</p>
-    <div>
+  <div class="shell footer-live-grid">
+    <div class="footer-brand-block">
+      <a class="brand" href="<?php echo esc_url(home_url('/')); ?>">
+        <span class="brand-signature" role="img" aria-label="Zielona Marka">
+          <img class="brand-apple" src="<?php echo esc_url(get_template_directory_uri().'/assets/images/logo-zielona-marka-transparent-v1.png'); ?>" alt="">
+          <span class="brand-wordmark"><b>ZIELONA</b><b>MARKA</b><small>STRONY WWW I SYSTEMY DLA FIRM</small></span>
+        </span>
+      </a>
+      <p>Strony WWW i systemy dla firm.</p>
+      <p>Warszawa, Targówek i okolice. Zdalnie w całej Polsce.</p>
+    </div>
+
+    <div class="footer-column">
+      <h2>Poznaj ofertę</h2>
       <a href="<?php echo esc_url(home_url('/oferta')); ?>">Oferta</a>
-      <a href="<?php echo esc_url(home_url('/realizacje')); ?>">Realizacje</a>
-      <a href="<?php echo esc_url(home_url('/status')); ?>">Status projektu</a>
+      <a href="<?php echo esc_url(home_url('/realizacje')); ?>">Projekty</a>
+      <a href="<?php echo esc_url(home_url('/jak-pracuje')); ?>">Współpraca</a>
+      <a href="<?php echo esc_url(home_url('/status')); ?>">Strefa klienta</a>
+    </div>
+
+    <div class="footer-column">
+      <h2>Porozmawiajmy</h2>
+      <a href="tel:+48450458466">+48 450 458 466</a>
+      <a href="mailto:kontakt@zielona-marka.pl">kontakt@zielona-marka.pl</a>
       <a href="https://www.facebook.com/StudioGraficzneZielonaMarka" target="_blank" rel="noreferrer">Facebook ↗</a>
       <a href="https://www.instagram.com/zielona.marka.pl/" target="_blank" rel="noreferrer">Instagram ↗</a>
-      <a href="<?php echo esc_url(home_url('/jak-pracuje')); ?>">Jak pracuję</a>
-      <a href="<?php echo esc_url(home_url('/polityka-prywatnosci')); ?>">Prywatność</a>
+      <a href="https://github.com/lukaszst-cz" target="_blank" rel="noreferrer">GitHub ↗</a>
     </div>
+
+    <div class="footer-column footer-local">
+      <h2>Warszawa · Targówek i okolice</h2>
+      <a href="<?php echo esc_url(home_url('/strony-internetowe/targowek')); ?>">Targówek</a>
+      <a href="<?php echo esc_url(home_url('/strony-internetowe/warszawa')); ?>">Warszawa</a>
+      <a href="<?php echo esc_url(home_url('/strony-internetowe/zabki')); ?>">Ząbki</a>
+      <a href="<?php echo esc_url(home_url('/strony-internetowe/zielonka')); ?>">Zielonka</a>
+      <a href="<?php echo esc_url(home_url('/strony-internetowe/kobylka')); ?>">Kobyłka</a>
+      <a href="<?php echo esc_url(home_url('/strony-internetowe/wolomin')); ?>">Wołomin</a>
+      <a href="<?php echo esc_url(home_url('/strony-internetowe/radzymin')); ?>">Radzymin</a>
+      <a href="<?php echo esc_url(home_url('/strony-internetowe/bialoleka')); ?>">Białołęka</a>
+      <a href="<?php echo esc_url(home_url('/strony-internetowe-marki')); ?>">Marki</a>
+    </div>
+  </div>
+  <div class="shell footer-bottom">
     <small>© <?php echo esc_html(wp_date('Y')); ?> Zielona Marka</small>
+    <a href="<?php echo esc_url(home_url('/polityka-prywatnosci')); ?>">Polityka prywatności</a>
+    <a href="<?php echo esc_url(home_url('/en')); ?>">English</a>
   </div>
 </footer>
 <?php wp_footer(); ?>
