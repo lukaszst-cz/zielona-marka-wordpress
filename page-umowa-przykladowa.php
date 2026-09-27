@@ -38,7 +38,7 @@ $clauses = [
 <main class="contract-page sample-contract-page">
 <div class="contract-actions"><button type="button" onclick="window.print()">Drukuj / zapisz jako PDF</button><a href="<?php echo esc_url(admin_url('admin.php?page=zm-studio')); ?>">Wróć do Studio</a><a href="<?php echo esc_url(home_url('/')); ?>">Strona główna</a></div>
 <article class="contract-document">
-<header><img src="https://raw.githubusercontent.com/lukaszst-cz/zielona-marka-pl/main/public/logo-zielona-marka-transparent-v1.png" alt="Zielona Marka"><div><small>DOKUMENT INFORMACYJNY / WERSJA PRZYKŁADOWA</small><h1>Przykładowy draft umowy</h1><p>Zakres, cena, terminy i dane stron są uzupełniane dla konkretnego projektu.</p></div></header>
+<header><img src="<?php echo esc_url(get_template_directory_uri().'/assets/images/logo-zielona-marka-transparent-v1.png'); ?>" alt="Zielona Marka"><div><small>DOKUMENT INFORMACYJNY / WERSJA PRZYKŁADOWA</small><h1>Przykładowy draft umowy</h1><p>Zakres, cena, terminy i dane stron są uzupełniane dla konkretnego projektu.</p></div></header>
 <p class="contract-warning"><b>Ważne:</b> to prywatny wzór do rozmowy i wglądu. Finalny dokument zawsze należy dopasować do konkretnego zlecenia; przy nietypowym zakresie lub współpracy z konsumentem warto skonsultować go z prawnikiem.</p>
 <section class="contract-summary"><b>Co jest zabezpieczone w umowie?</b><span>zakres i terminy</span><span>poprawki i rozliczenie</span><span>SEO i QA</span><span>dostępy i przekazanie</span><span>opieka i prawa</span></section>
 <div class="contract-clauses"><?php foreach($clauses as [$title,$body]): ?><section><h2>§ <?php echo esc_html($title); ?></h2><p><?php echo esc_html($body); ?></p></section><?php endforeach; ?></div>
