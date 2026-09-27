@@ -8,7 +8,8 @@
   "login": true,
   "siteOptions": {
     "blogname": "Zielona Marka — WordPress 1:1",
-    "blogdescription": "Roboczy podgląd synchronizacji z zielona-marka.pl"
+    "blogdescription": "Roboczy podgląd synchronizacji z zielona-marka.pl",
+    "permalink_structure": "/%postname%/"
   },
   "steps": [
     {
