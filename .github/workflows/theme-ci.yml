@@ -49,3 +49,63 @@ jobs:
           python -m json.tool blueprint.json >/dev/null
           python -m json.tool blueprint-preview.json >/dev/null
           grep -Fq "sync-live-1to1-2026-09-27" blueprint-preview.json
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Start WordPress Playground
+        run: |
+          nohup npx --yes @wp-playground/cli@latest server --blueprint=blueprint-preview.json --skip-browser --port=9400 > /tmp/playground.log 2>&1 &
+          echo $! > /tmp/playground.pid
+          for i in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:9400/ > /tmp/playground-home.html; then
+              exit 0
+            fi
+            sleep 2
+          done
+          cat /tmp/playground.log
+          exit 1
+      - name: Runtime WordPress smoke tests
+        run: |
+          check_200() {
+            path="$1"
+            marker="$2"
+            code=$(curl -sS -o /tmp/route.html -w "%{http_code}" "http://127.0.0.1:9400$path")
+            if [ "$code" != "200" ]; then
+              echo "Expected 200 for $path, got $code"
+              cat /tmp/route.html
+              exit 1
+            fi
+            if ! grep -Fq "$marker" /tmp/route.html; then
+              echo "Marker not found for $path: $marker"
+              exit 1
+            fi
+          }
+
+          check_200 "/" "Masz dobrą firmę."
+          check_200 "/oferta/" "ZM Start"
+          check_200 "/kontakt/" "KONTAKT I WYCENA"
+          check_200 "/maly-crm-dla-firm/" "Każdy klient ma status."
+          check_200 "/jak-pracuje/" "JAK PRACUJĘ"
+          check_200 "/realizacje/" "REALIZACJE I DEMONSTRACJE"
+          check_200 "/strony-internetowe/targowek/" "TARGÓWEK"
+          check_200 "/strony-internetowe/warszawa/" "WARSZAWA"
+          check_200 "/demo/natura/" "Natura Studio"
+          check_200 "/demo/transport/" "ZIELONY TRANSPORT"
+          check_200 "/en/" "You have a good business."
+          check_200 "/status/" "STREFA KLIENTA"
+          check_200 "/status/ZM-DEMO-2026/" "Przykładowa strona usługowa"
+          check_200 "/status/ZM-DEMO-2026/qa/" "Kontrola jakości"
+          check_200 "/status/ZM-DEMO-2026/umowa/" "Umowa o wykonanie projektu"
+
+          chatbot=$(curl -sS -o /dev/null -w "%{http_code}" http://127.0.0.1:9400/chatbot-dla-firm/)
+          test "$chatbot" = "301" || { echo "Expected 301 for chatbot compatibility route, got $chatbot"; exit 1; }
+
+          studio=$(curl -sS -o /dev/null -w "%{http_code}" http://127.0.0.1:9400/studio/)
+          test "$studio" = "302" || { echo "Expected login redirect for /studio/, got $studio"; exit 1; }
+
+          missing=$(curl -sS -o /dev/null -w "%{http_code}" http://127.0.0.1:9400/nie-istnieje-zielona-marka/)
+          test "$missing" = "404" || { echo "Expected 404 for missing route, got $missing"; exit 1; }
+      - name: Show Playground log on failure
+        if: failure()
+        run: cat /tmp/playground.log || true
