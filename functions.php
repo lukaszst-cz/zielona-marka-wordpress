@@ -113,6 +113,7 @@ function zm_handle_brief(): void {
     $assistant_goal = sanitize_text_field(wp_unslash($_POST['assistantGoal'] ?? ''));
     $assistant_industry = sanitize_text_field(wp_unslash($_POST['assistantIndustry'] ?? ''));
     $phone = sanitize_text_field(wp_unslash($_POST['phone'] ?? ''));
+    $consent = sanitize_text_field(wp_unslash($_POST['consent'] ?? ''));
 
     if ($assistant_goal || $assistant_industry) {
         $message = "Asystent demonstracyjny\nCel: {$assistant_goal}\nBranża: {$assistant_industry}\nTelefon: " . ($phone ?: 'nie podano') . "\n\n" . ($message ?: 'Prośba o kontakt.');
@@ -124,7 +125,7 @@ function zm_handle_brief(): void {
         exit;
     }
 
-    if (!$name || !is_email($email) || !$message) {
+    if (!$name || !is_email($email) || !$message || $consent !== 'yes') {
         wp_safe_redirect(add_query_arg('brief', 'error', wp_get_referer() ?: home_url('/')) . '#kontakt');
         exit;
     }
