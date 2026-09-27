@@ -12,7 +12,7 @@
   <nav class="nav shell" aria-label="Główna nawigacja">
     <a class="brand" href="<?php echo esc_url(home_url('/')); ?>" aria-label="Zielona Marka, strona główna">
       <span class="brand-signature" role="img" aria-label="Zielona Marka">
-        <img class="brand-apple" src="https://raw.githubusercontent.com/lukaszst-cz/zielona-marka-pl/main/public/logo-zielona-marka-transparent-v1.png" alt="">
+        <img class="brand-apple" src="<?php echo esc_url(get_template_directory_uri().'/assets/images/logo-zielona-marka-transparent-v1.png'); ?>" alt="">
         <span class="brand-wordmark"><b>ZIELONA</b><b>MARKA</b><small>STRONY WWW I SYSTEMY DLA FIRM</small></span>
       </span>
     </a>
