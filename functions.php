@@ -324,6 +324,11 @@ add_filter('show_admin_bar', 'zm_front_admin_bar');
  */
 function zm_demo_redirects(): void {
     $path = trim((string) parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH), '/');
+
+    if ($path === 'chatbot-dla-firm') {
+        wp_safe_redirect(home_url('/asystent-zapytan'), 301);
+        exit;
+    }
     $targets = [
         'demo/auto-naprawa' => 'https://lukaszst-cz.github.io/auto-naprawa-ksef-demo/',
         'demo/auto-naprawa/portal' => 'https://lukaszst-cz.github.io/auto-naprawa-ksef-demo/portal/',
