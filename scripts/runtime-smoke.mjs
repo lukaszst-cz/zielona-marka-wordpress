@@ -56,6 +56,7 @@ const cli = await runCLI({
   command: 'server',
   php: '8.3',
   wp: 'latest',
+  port: 9400,
   login: false,
   mount: [
     {
@@ -71,6 +72,7 @@ const cli = await runCLI({
       permalink_structure: '/%postname%/',
     },
     steps: [
+      { step: 'defineSiteUrl', siteUrl: 'http://127.0.0.1:9400' },
       { step: 'activateTheme', themeFolderName: 'zielona-marka' },
       { step: 'runPHP', code: demoProjectPhp },
     ],
