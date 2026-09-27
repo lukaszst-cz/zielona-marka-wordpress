@@ -112,14 +112,7 @@ jobs:
           zipinfo -1 "$ZIP" | grep -Fq "zielona-marka/style.css"
           zipinfo -1 "$ZIP" | grep -Fq "zielona-marka/functions.php"
           zipinfo -1 "$ZIP" | grep -Fq "zielona-marka/inc/mail.php"
-          if zipinfo -1 "$ZIP" | grep -E '(^|/)(node_modules|\.github|scripts|preview|visual-qa)(/|$)|blueprint.*\.json$|README\.md$|package(-lock)?\.json$|/index\.html
-        uses: actions/upload-artifact@v4
-        with:
-          name: zielona-marka-wordpress-1.4.4
-          path: dist/zielona-marka-wordpress-1.4.4.zip
-          if-no-files-found: error
-          retention-days: 14
-; then
+          if zipinfo -1 "$ZIP" | grep -E '(^|/)(node_modules|\.github|scripts|preview|visual-qa)(/|$)|blueprint.*\.json$|README\.md$|package(-lock)?\.json$|/index\.html$'; then
             echo "Development files found in installable package."
             exit 1
           fi
