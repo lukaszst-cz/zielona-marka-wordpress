@@ -242,3 +242,66 @@ url("../images/fern-stream-hero.png") center/cover no-repeat;transform:scale(1.0
   .site-footer .footer-bottom{flex-wrap:wrap}
   .site-footer .footer-bottom a{margin-left:0}
 }
+
+
+/* 2026-09-27 production-sync homepage */
+.live-shell{width:min(1240px,calc(100% - 44px));margin-inline:auto}
+.section-dark{background:#071d15;color:#f7faf5}
+.section-light{background:#f1f2e9;color:#16221a}
+.section-sage{background:#dce6d7;color:#173027}
+.section-cream{background:#f1eee3;color:#1c2c23}
+.section-pink{background:#ead8da;color:#392b2f}
+.section-darkgreen{background:#09271c;color:#f5f8f4}
+.live-home h1,.live-home h2,.live-home h3{font-weight:700;letter-spacing:-.045em}
+.live-home h2{font-size:clamp(44px,6.1vw,86px);line-height:.94;margin:0 0 28px}
+.live-home p{line-height:1.65}
+.live-kicker.dark{color:#477f38}
+.live-lead{font-size:clamp(18px,2vw,24px);max-width:720px}
+.live-lead.dark{color:#2e4438}
+.live-hero{position:relative;min-height:100svh;padding:150px 0 90px;overflow:hidden;isolation:isolate}
+.live-hero:before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,rgba(1,21,14,.96),rgba(1,21,14,.76) 44%,rgba(1,21,14,.2) 73%,rgba(1,21,14,.54)),url("../images/fern-stream-hero.png") center/cover no-repeat}
+.live-hero:after{content:"";position:absolute;inset:auto 0 0;height:34%;z-index:-1;background:linear-gradient(transparent,#071d15)}
+.live-hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(330px,.75fr);gap:7vw;align-items:center}
+.live-hero h1{font-size:clamp(58px,7.4vw,108px);line-height:.88;margin:18px 0 28px}
+.live-hero h1 em{display:block;color:#d7f2cc;font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:.79em;margin-top:12px}
+.live-links{font-size:14px;color:#d4dfd8}.live-links a{border-bottom:1px solid rgba(255,255,255,.3);text-decoration:none}
+.live-actions{display:flex;gap:22px;align-items:center;flex-wrap:wrap;margin-top:28px}
+.live-button{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:#d2ef7a;color:#163023!important;padding:14px 20px;text-decoration:none;font-weight:800;border:1px solid #d2ef7a}
+.live-button-light{background:#eff7e7}
+.live-text-link{display:inline-block;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:4px;font-weight:800}
+.live-text-link.dark{color:#20392d}
+.live-proof{display:grid;gap:6px;margin-top:36px;color:#cbd8d0;font-size:12px}
+.live-proof span:before{content:"✓";color:#c9ef63;margin-right:8px}
+.live-hero-art{align-self:end;text-align:right;padding-bottom:8vh;color:#dbe6df}
+.live-hero-art span,.live-hero-art b{display:block;font-size:10px;letter-spacing:.17em}
+.live-hero-art strong{display:block;margin-top:24px;font-size:clamp(42px,5vw,74px);line-height:.92}
+.live-intro{padding:120px 0}
+.live-intro-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:7vw;align-items:start}
+.live-process-preview{display:grid;grid-template-columns:repeat(3,1fr);border-block:1px solid #c9d0c7}
+.live-process-preview article{padding:24px;border-right:1px solid #c9d0c7;min-height:210px;display:flex;flex-direction:column;justify-content:space-between}
+.live-process-preview article:last-child{border-right:0}.live-process-preview span{font-size:10px;letter-spacing:.13em;color:#4d7b3d}.live-process-preview b{font-size:25px;line-height:1.05}.live-process-preview small{color:#617066}
+.live-story-row{padding:120px 0}
+.live-two-col{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:8vw;align-items:center}
+.live-two-col.reverse>div:first-child{order:2}
+.live-step{font-size:11px;font-weight:800;letter-spacing:.15em;color:#4b7d3e}
+.section-darkgreen .live-step{color:#c9ef63}
+.live-story-row p{font-size:17px;max-width:680px}
+.live-quote{font-size:clamp(28px,3.6vw,50px)!important;font-weight:800;line-height:1.02!important;color:#52744d}
+.live-demo-card{border:1px solid rgba(23,48,39,.16);border-radius:24px;padding:30px;background:rgba(255,255,255,.55);box-shadow:0 28px 80px rgba(30,52,40,.12)}
+.section-darkgreen .live-demo-card{border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.05)}
+.live-demo-card h3{font-size:clamp(38px,5vw,70px);line-height:.92;margin:18px 0}
+.live-demo-card small{font-size:10px;letter-spacing:.1em}
+.demo-nav{display:flex;gap:16px;align-items:center;font-size:11px;border-bottom:1px solid rgba(23,48,39,.15);padding-bottom:15px;margin-bottom:50px}.demo-nav b{margin-right:auto}
+.beauty-demo{min-height:470px;background:linear-gradient(140deg,#eef1e8,#c9dac3)}
+.form-demo{background:#fff}.form-demo label{display:grid;gap:7px;font-size:11px;font-weight:800;margin:12px 0}.form-demo input,.form-demo select,.form-demo textarea{width:100%;border:1px solid #ccd3cc;border-radius:10px;padding:12px;background:#f8f9f6}.form-demo button{border:0;border-radius:999px;background:#173027;color:#fff;padding:13px 18px;font-weight:800}
+.voucher-demo{min-height:470px;background:linear-gradient(145deg,#3b202c,#201218);color:#fff}.voucher-demo>b{color:#ffd5dc}.voucher-demo h3{font-size:clamp(50px,6vw,80px)}
+.crm-demo>div,.aftercare-demo>div{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap}.crm-demo b,.aftercare-demo b{padding:18px;border:1px solid currentColor;border-radius:12px}.crm-demo span,.aftercare-demo span{color:#c9ef63}
+.live-projects{padding:120px 0}
+.live-section-head{display:flex;justify-content:space-between;gap:32px;align-items:end}.live-section-head h2{margin-bottom:0}
+.live-project-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:44px}.live-project-grid>a{min-height:320px;border:1px solid #cbd2ca;border-radius:20px;padding:28px;text-decoration:none;display:flex;flex-direction:column;background:#fafaf5}.live-project-grid h3{font-size:42px;margin:30px 0 12px}.live-project-grid b{margin-top:auto}
+.live-disclaimer{font-size:11px;color:#748077}
+.live-about{padding:120px 0}.live-steps-list{list-style:none;padding:0;margin:0;border-top:1px solid #bdc7bd}.live-steps-list li{display:grid;grid-template-columns:60px 1fr;gap:20px;padding:24px 0;border-bottom:1px solid #bdc7bd}.live-steps-list li>span{color:#4d7b3d;font-weight:800}.live-steps-list h3{font-size:26px;margin:0 0 8px}
+.live-care{padding:120px 0;position:relative;overflow:hidden}.live-care:before{content:"";position:absolute;inset:0;opacity:.18;background:url("../images/fern-stream-hero.png") center/cover no-repeat}.live-care>.live-shell{position:relative}.live-chip-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.live-chip-row a{border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:10px 14px;text-decoration:none}
+.live-contact{padding:120px 0}.live-contact-head{display:grid;grid-template-columns:.9fr 1.1fr;gap:8vw;align-items:start}.live-contact-box{border-top:1px solid #c2cac1;padding-top:24px}.live-contact-box h3{font-size:34px;margin:0 0 10px}.live-contact-box .contact-form{display:grid;grid-template-columns:1fr 1fr;gap:14px}.live-contact-box .contact-form label{display:grid;gap:7px;font-size:11px;font-weight:800}.live-contact-box .contact-form input,.live-contact-box .contact-form select,.live-contact-box .contact-form textarea{width:100%;padding:13px;border:1px solid #c4ccc4;border-radius:10px;background:#f8f8f4}.live-contact-box .contact-form .form-wide{grid-column:1/-1}.live-contact-box .contact-form button{grid-column:1/-1;border:0}
+@media(max-width:980px){.live-hero-grid,.live-intro-grid,.live-two-col,.live-contact-head{grid-template-columns:1fr}.live-two-col.reverse>div:first-child{order:0}.live-hero-art{text-align:left;padding-bottom:0}.live-process-preview{grid-template-columns:1fr}.live-process-preview article{border-right:0;border-bottom:1px solid #c9d0c7}.live-process-preview article:last-child{border-bottom:0}}
+@media(max-width:700px){.live-shell{width:min(100% - 28px,1240px)}.live-hero{padding:118px 0 70px}.live-hero h1{font-size:clamp(50px,15vw,70px)}.live-story-row,.live-intro,.live-projects,.live-about,.live-care,.live-contact{padding:82px 0}.live-project-grid{grid-template-columns:1fr}.live-section-head{display:grid}.live-contact-box .contact-form{grid-template-columns:1fr}.live-contact-box .contact-form .form-wide{grid-column:1}.live-actions{align-items:flex-start}}
