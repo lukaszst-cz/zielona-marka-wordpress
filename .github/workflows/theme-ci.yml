@@ -52,7 +52,7 @@ jobs:
           grep -Fq "status/([^/]+)/umowa" inc/client-status.php
           grep -Fq "status/([^/]+)/qa" inc/client-status.php
           grep -Fq "chatbot-dla-firm" functions.php
-          grep -Fq "define('ZM_VERSION', '1.4.3');" functions.php
+          grep -Fq "define('ZM_VERSION', '1.4.4');" functions.php
           grep -Fq "transport" page-transport.php
       - name: Verify local CSS assets
         run: |
@@ -86,3 +86,18 @@ jobs:
         run: npm install --no-save @wp-playground/cli@latest
       - name: Runtime WordPress smoke tests
         run: node scripts/runtime-smoke.mjs
+
+      - name: Build installable theme package
+        run: |
+          rm -rf dist
+          mkdir -p dist/zielona-marka
+          rsync -a ./ dist/zielona-marka/             --exclude '.git/'             --exclude '.github/'             --exclude 'scripts/'             --exclude 'preview/'             --exclude 'visual-qa/'             --exclude 'dist/'             --exclude 'blueprint*.json'             --exclude 'README.md'             --exclude 'index.html'
+          cd dist
+          zip -qr zielona-marka-wordpress-1.4.4.zip zielona-marka
+      - name: Upload installable theme package
+        uses: actions/upload-artifact@v4
+        with:
+          name: zielona-marka-wordpress-1.4.4
+          path: dist/zielona-marka-wordpress-1.4.4.zip
+          if-no-files-found: error
+          retention-days: 14
