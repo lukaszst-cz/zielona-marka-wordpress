@@ -23,6 +23,9 @@ jobs:
           test -s page-jak-pracuje.php
           test -s page-raport-qa.php
           test -s inc/client-status.php
+          test -s inc/studio.php
+          test -s page-studio.php
+          test -s page-umowa-przykladowa.php
           test -s status-client.php
           test -s status-contract.php
           test -s status-qa.php
@@ -32,6 +35,8 @@ jobs:
         run: |
           grep -Fq "zm_local_landing_template" functions.php
           grep -Fq "inc/client-status.php" functions.php
+          grep -Fq "inc/studio.php" functions.php
+          grep -Fq "zm_store_inquiry" functions.php
           grep -Fq "zm_register_status_routes" inc/client-status.php
           grep -Fq "status/([^/]+)/umowa" inc/client-status.php
           grep -Fq "status/([^/]+)/qa" inc/client-status.php
