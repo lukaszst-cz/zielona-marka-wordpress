@@ -1,7 +1,7 @@
 <?php
 if (!defined('ABSPATH')) { exit; }
 
-define('ZM_VERSION', '1.1.0');
+define('ZM_VERSION', '1.2.0');
 
 function zm_setup(): void {
     add_theme_support('title-tag');
@@ -15,19 +15,17 @@ function zm_setup(): void {
 add_action('after_setup_theme', 'zm_setup');
 
 function zm_assets(): void {
+    wp_enqueue_style('zm-main', get_template_directory_uri() . '/assets/css/main.css', [], ZM_VERSION);
+
     if (is_front_page()) {
-        wp_enqueue_style(
-            'zm-production-home',
-            'https://zielona-marka.pl/_next/static/css/index.DSDKteEL.css',
-            [],
-            null
-        );
-    } else {
-        wp_enqueue_style('zm-main', get_template_directory_uri() . '/assets/css/main.css', [], ZM_VERSION);
+        wp_enqueue_style('zm-live-home', get_template_directory_uri() . '/assets/css/live-home.css', ['zm-main'], ZM_VERSION);
+        wp_enqueue_script('zm-live-home', get_template_directory_uri() . '/assets/js/live-home.js', [], ZM_VERSION, true);
     }
+
     if (is_page('detailflow')) {
         wp_enqueue_style('zm-detailflow', get_template_directory_uri() . '/assets/css/detailflow.css', ['zm-main'], ZM_VERSION);
     }
+
     wp_enqueue_script('zm-main', get_template_directory_uri() . '/assets/js/main.js', [], ZM_VERSION, true);
 }
 add_action('wp_enqueue_scripts', 'zm_assets');
