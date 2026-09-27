@@ -1,7 +1,7 @@
 <?php
 if (!defined('ABSPATH')) { exit; }
 
-define('ZM_VERSION', '1.2.0');
+define('ZM_VERSION', '1.3.0');
 
 function zm_setup(): void {
     add_theme_support('title-tag');
@@ -273,6 +273,16 @@ function zm_create_required_pages(): void {
     flush_rewrite_rules();
 }
 add_action('after_switch_theme', 'zm_create_required_pages');
+
+function zm_maybe_create_required_pages(): void {
+    $pages_version = (string) get_option('zm_required_pages_version', '');
+    if ($pages_version === ZM_VERSION) {
+        return;
+    }
+    zm_create_required_pages();
+    update_option('zm_required_pages_version', ZM_VERSION, false);
+}
+add_action('admin_init', 'zm_maybe_create_required_pages');
 
 
 
