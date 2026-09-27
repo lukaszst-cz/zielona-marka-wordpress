@@ -24,7 +24,7 @@ $scope = zm_project_value($project, 'scope', 'Zakres jest obecnie doprecyzowywan
 <head><meta charset="<?php bloginfo('charset'); ?>"><meta name="viewport" content="width=device-width,initial-scale=1"><?php wp_head(); ?></head>
 <body <?php body_class('client-status'); ?>><?php wp_body_open(); ?>
 <main class="client-status">
-<nav class="nav shell"><a class="brand" href="<?php echo esc_url(home_url('/')); ?>"><span class="brand-signature"><img class="brand-apple" src="https://raw.githubusercontent.com/lukaszst-cz/zielona-marka-pl/main/public/logo-zielona-marka-transparent-v1.png" alt=""><span class="brand-wordmark"><b>ZIELONA</b><b>MARKA</b><small>STRONY WWW I SYSTEMY DLA FIRM</small></span></span></a><span>Strefa klienta</span></nav>
+<nav class="nav shell"><a class="brand" href="<?php echo esc_url(home_url('/')); ?>"><span class="brand-signature"><img class="brand-apple" src="<?php echo esc_url(get_template_directory_uri().'/assets/images/logo-zielona-marka-transparent-v1.png'); ?>" alt=""><span class="brand-wordmark"><b>ZIELONA</b><b>MARKA</b><small>STRONY WWW I SYSTEMY DLA FIRM</small></span></span></a><span>Strefa klienta</span></nav>
 <div class="client-status-shell">
 <header><span class="section-no">PROJEKT <?php echo esc_html($code); ?></span><h1><?php echo esc_html(get_the_title($project)); ?></h1><p><?php echo esc_html($company ?: $client); ?></p></header>
 
