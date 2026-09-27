@@ -10,7 +10,7 @@
 
 [Uruchom aktualną gałąź w WordPress Playground](https://playground.wordpress.net/?blueprint-url=https%3A%2F%2Fraw.githubusercontent.com%2Flukaszst-cz%2Fzielona-marka-wordpress%2Fsync-live-1to1-2026-09-27%2Fblueprint-preview.json)
 
-Podgląd instaluje i aktywuje bezpośrednio gałąź `sync-live-1to1-2026-09-27`, więc pokazuje bieżące zmiany przed scaleniem do `main`.
+Podgląd instaluje i aktywuje bezpośrednio gałąź `sync-live-1to1-2026-09-27`, więc pokazuje bieżące zmiany przed scaleniem do `main`.\n\n**Demo Strefy klienta:** po uruchomieniu podglądu wpisz kod `ZM-DEMO-2026` na stronie `/status`. Blueprint tworzy wyłącznie przykładowy projekt demonstracyjny.
 
 ## Co zawiera
 
