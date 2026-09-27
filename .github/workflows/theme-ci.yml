@@ -49,6 +49,24 @@ jobs:
           grep -Fq "chatbot-dla-firm" functions.php
           grep -Fq "define('ZM_VERSION', '1.4.0');" functions.php
           grep -Fq "transport" page-transport.php
+      - name: Verify local CSS assets
+        run: |
+          python - <<'PY'
+          import pathlib, re, sys
+          root = pathlib.Path('.')
+          missing = []
+          for css in root.glob('assets/css/*.css'):
+              text = css.read_text(encoding='utf-8')
+              for raw in re.findall(r'url\((?:[\'"]?)([^)\'"]+)', text):
+                  if raw.startswith(('http://','https://','data:','#','/')):
+                      continue
+                  target = (css.parent / raw).resolve()
+                  if not target.exists():
+                      missing.append(f"{css}: {raw}")
+          if missing:
+              print("\n".join(missing))
+              sys.exit(1)
+          PY
       - name: Validate Playground blueprints
         run: |
           python -m json.tool blueprint.json >/dev/null
