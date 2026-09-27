@@ -191,10 +191,10 @@ $brief_status = sanitize_key(wp_unslash($_GET['brief'] ?? ''));
         <h2>Spokojny proces.<br><em>Wspólny kierunek.</em></h2>
         <p>Mam na imię Łukasz. Tworzę strony i proste narzędzia, które ułatwiają kontakt z klientami i codzienną pracę firmy. Zaczynam od rozmowy o tym, czego potrzebujesz, a potem proponuję rozwiązanie i zakres prac. Rozmawiasz bezpośrednio ze mną i wiesz, co przygotowujemy oraz co będziesz zatwierdzać.</p>
       </div>
-      <div class="live-coop-photo">
-        <div class="live-photo-placeholder"><span>ZIELONA MARKA</span><b>Bezpośrednia współpraca<br>od pomysłu po gotową stronę.</b></div>
-        <small>Rozmawiasz bezpośrednio ze mną, od pomysłu po gotową stronę.</small>
-      </div>
+      <figure class="live-coop-photo">
+        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/lukasz-zielona-marka-jak-pracuje-20260908.webp'); ?>" alt="Łukasz podczas pracy nad projektem Zielonej Marki" loading="lazy" decoding="async">
+        <figcaption>Rozmawiasz bezpośrednio ze mną, od pomysłu po gotową stronę.</figcaption>
+      </figure>
     </div>
 
     <div class="shell live-coop-steps">
