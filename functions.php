@@ -199,6 +199,7 @@ function zm_create_required_pages(): void {
         'strony-dla-beauty' => 'Strony dla beauty',
         'asystent-zapytan' => 'Asystent zapytań',
         'strony-internetowe-marki' => 'Strony internetowe Marki',
+        'strony-internetowe' => 'Strony internetowe',
         'en' => 'English',
         'status' => 'Status projektu',
         'demo' => 'Demo',
@@ -236,6 +237,16 @@ function zm_create_required_pages(): void {
             'transportflow' => 'TransportFlow',
             'detailflow' => 'DetailFlow',
         ],
+        'strony-internetowe' => [
+            'targowek' => 'Strony internetowe dla firm z Targówka',
+            'warszawa' => 'Strony internetowe dla firm z Warszawy',
+            'zabki' => 'Strony internetowe dla firm z Ząbek',
+            'zielonka' => 'Strony internetowe dla firm z Zielonki',
+            'kobylka' => 'Strony internetowe dla firm z Kobyłki',
+            'wolomin' => 'Strony internetowe dla firm z Wołomina',
+            'radzymin' => 'Strony internetowe dla firm z Radzymina',
+            'bialoleka' => 'Strony internetowe dla firm z Białołęki',
+        ],
     ];
 
     foreach ($children as $parent_slug => $pages) {
@@ -262,6 +273,28 @@ function zm_create_required_pages(): void {
     flush_rewrite_rules();
 }
 add_action('after_switch_theme', 'zm_create_required_pages');
+
+
+
+function zm_local_landing_template(string $template): string {
+    if (!is_page()) {
+        return $template;
+    }
+
+    $page = get_queried_object();
+    if (!($page instanceof WP_Post) || !$page->post_parent) {
+        return $template;
+    }
+
+    $parent = get_post($page->post_parent);
+    if (!($parent instanceof WP_Post) || $parent->post_name !== 'strony-internetowe') {
+        return $template;
+    }
+
+    $local_template = get_template_directory() . '/page-lokalna.php';
+    return file_exists($local_template) ? $local_template : $template;
+}
+add_filter('template_include', 'zm_local_landing_template', 20);
 
 function zm_excerpt_length(): int { return 22; }
 add_filter('excerpt_length', 'zm_excerpt_length');
