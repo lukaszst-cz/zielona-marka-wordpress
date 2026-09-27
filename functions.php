@@ -139,17 +139,150 @@ function zm_handle_brief(): void {
 add_action('admin_post_nopriv_zm_send_brief', 'zm_handle_brief');
 add_action('admin_post_zm_send_brief', 'zm_handle_brief');
 
+function zm_seo_data(): array {
+    $defaults = [
+        'title' => 'Strony internetowe dla firm usługowych | Zielona Marka',
+        'description' => 'Strony WWW, formularze wyceny, mały CRM i usprawnienia dla lokalnych firm usługowych. Warszawa, Targówek i okolice oraz współpraca zdalna w całej Polsce.',
+    ];
+
+    if (is_front_page()) {
+        return $defaults;
+    }
+
+    if (!is_page()) {
+        return $defaults;
+    }
+
+    $page = get_queried_object();
+    $slug = $page instanceof WP_Post ? $page->post_name : '';
+
+    $map = [
+        'oferta' => ['Oferta stron WWW i systemów dla firm | Zielona Marka', 'Pakiety stron WWW, formularze, mały CRM, asystent zapytań, mini sklep i opieka. Jasne ceny startowe i zakres prac.'],
+        'modernizacja-strony' => ['Modernizacja strony internetowej dla firmy | Zielona Marka', 'Audyt i modernizacja istniejącej strony: wersja mobilna, kontakt, treści, szybkość, formularze i podstawy widoczności w Google.'],
+        'realizacje' => ['Projekty i demonstracje | Zielona Marka', 'Zobacz demonstracyjne strony i systemy dla beauty, gastronomii, nieruchomości, warsztatu i transportu.'],
+        'maly-crm-dla-firm' => ['Mały CRM dla firmy usługowej | Zielona Marka', 'Prosty CRM do klientów, zapytań, wycen, statusów zleceń, terminów i następnych działań.'],
+        'usprawnienia-firmy' => ['Usprawnienia i automatyzacje dla małej firmy | Zielona Marka', 'Formularze, automatyzacje, raporty i proste systemy, które ograniczają ręczne przepisywanie danych i pilnowanie terminów.'],
+        'jak-pracuje' => ['Jak pracuję nad stroną i systemem | Zielona Marka', 'Proces współpracy od briefu, przez projekt i wdrożenie, po QA, publikację, przekazanie dostępów i wsparcie.'],
+        'kontakt' => ['Kontakt i wycena projektu | Zielona Marka', 'Opowiedz o swojej firmie i potrzebie. Kontakt telefoniczny, e-mail, WhatsApp lub spotkanie online.'],
+        'strony-dla-warsztatow' => ['Strony internetowe dla warsztatów i detailingu | Zielona Marka', 'Strona warsztatu z formularzem: auto, usterka, zdjęcia i termin. Rozwiązania dla warsztatów, detailingu i lokalnych serwisów.'],
+        'strony-dla-firm-uslugowych' => ['Strony dla firm remontowych i instalatorów | Zielona Marka', 'Strona i formularz wyceny dla ekip remontowych, hydraulików, elektryków, instalatorów i lokalnych wykonawców.'],
+        'strony-dla-beauty' => ['Strony internetowe dla branży beauty | Zielona Marka', 'Strony, rezerwacje i sprzedaż dla salonów kosmetycznych, fryzjerów, barberów, masażu i usług umawianych na termin.'],
+        'asystent-zapytan' => ['Asystent zapytań dla firmy usługowej | Zielona Marka', 'Asystent FAQ, kwalifikacja zapytań i przekazanie kontaktu dla warsztatów, wykonawców, salonów beauty i lokalnych usług.'],
+        'strony-internetowe-marki' => ['Strony internetowe Marki i okolice | Zielona Marka', 'Strony internetowe dla firm z Marek i okolic: oferta, formularz, lokalne podstawy Google i prosty kontakt z klientem.'],
+        'raport-qa' => ['Przykładowy raport kontroli jakości | Zielona Marka', 'Zobacz, co jest sprawdzane przed publikacją strony: urządzenia, formularze, linki, podstawy Google, szybkość i stabilność.'],
+        'polityka-prywatnosci' => ['Polityka prywatności | Zielona Marka', 'Informacje o przetwarzaniu danych w formularzu kontaktowym, Strefie klienta i serwisie Zielona Marka.'],
+        'en' => ['Websites and business systems | Zielona Marka', 'Websites, enquiry forms, small CRM systems and practical digital workflows for service businesses.'],
+        'status' => ['Status projektu | Zielona Marka', 'Private client area for checking project progress, next steps, deadlines and documents.'],
+    ];
+
+    if (isset($map[$slug])) {
+        return ['title' => $map[$slug][0], 'description' => $map[$slug][1]];
+    }
+
+    if ($page instanceof WP_Post && $page->post_parent) {
+        $parent = get_post($page->post_parent);
+        if ($parent instanceof WP_Post && $parent->post_name === 'strony-internetowe') {
+            $city_names = [
+                'targowek' => 'Targówek',
+                'warszawa' => 'Warszawa',
+                'zabki' => 'Ząbki',
+                'zielonka' => 'Zielonka',
+                'kobylka' => 'Kobyłka',
+                'wolomin' => 'Wołomin',
+                'radzymin' => 'Radzymin',
+                'bialoleka' => 'Białołęka',
+            ];
+            $city = $city_names[$slug] ?? ucfirst($slug);
+            return [
+                'title' => sprintf('Strony internetowe %s dla firm | Zielona Marka', $city),
+                'description' => sprintf('Strony internetowe, formularze i lokalne podstawy Google dla firm usługowych z obszaru %s i okolic.', $city),
+            ];
+        }
+    }
+
+    return $defaults;
+}
+
+function zm_document_title(string $title): string {
+    if (is_front_page() || is_page()) {
+        $seo = zm_seo_data();
+        return $seo['title'] ?? $title;
+    }
+    return $title;
+}
+add_filter('pre_get_document_title', 'zm_document_title');
+
+function zm_meta_tags(): void {
+    if (!(is_front_page() || is_page()) || (string) get_query_var('zm_status_code') !== '') {
+        return;
+    }
+    if (defined('WPSEO_VERSION') || defined('RANK_MATH_VERSION') || defined('SEOPRESS_VERSION')) {
+        return;
+    }
+
+    $seo = zm_seo_data();
+    $title = $seo['title'] ?? get_bloginfo('name');
+    $description = $seo['description'] ?? '';
+    $canonical = is_front_page() ? home_url('/') : get_permalink();
+    $image = get_template_directory_uri() . '/assets/images/fern-stream-hero.png';
+
+    echo '<meta name="description" content="' . esc_attr($description) . '">' . "\n";
+    echo '<link rel="canonical" href="' . esc_url($canonical) . '">' . "\n";
+    echo '<meta property="og:type" content="website">' . "\n";
+    echo '<meta property="og:title" content="' . esc_attr($title) . '">' . "\n";
+    echo '<meta property="og:description" content="' . esc_attr($description) . '">' . "\n";
+    echo '<meta property="og:url" content="' . esc_url($canonical) . '">' . "\n";
+    echo '<meta property="og:image" content="' . esc_url($image) . '">' . "\n";
+    echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
+}
+add_action('wp_head', 'zm_meta_tags', 5);
+
 function zm_schema(): void {
     if (!is_front_page()) { return; }
+
     $schema = [
-        '@context' => 'https://schema.org',
-        '@type' => 'ProfessionalService',
-        'name' => 'Zielona Marka',
-        'url' => home_url('/'),
-        'email' => get_theme_mod('zm_email', 'kontakt@zielona-marka.pl'),
-        'areaServed' => 'PL',
-        'description' => 'Strony WWW, formularze wyceny, małe CRM-y i usprawnienia dla lokalnych firm usługowych.',
-        'serviceType' => ['Strony internetowe', 'Formularze wyceny', 'Mały CRM', 'WordPress', 'Lokalne SEO'],
+        [
+            '@context' => 'https://schema.org',
+            '@type' => 'ProfessionalService',
+            'name' => 'Zielona Marka',
+            'url' => home_url('/'),
+            'email' => get_theme_mod('zm_email', 'kontakt@zielona-marka.pl'),
+            'telephone' => get_theme_mod('zm_phone', '+48 450 458 466'),
+            'areaServed' => 'PL',
+            'description' => 'Strony WWW, formularze wyceny, małe CRM-y i usprawnienia dla lokalnych firm usługowych.',
+            'serviceType' => ['Strony internetowe', 'Formularze wyceny', 'Mały CRM', 'WordPress', 'Lokalne SEO'],
+        ],
+        [
+            '@context' => 'https://schema.org',
+            '@type' => 'OfferCatalog',
+            'name' => 'Oferta Zielonej Marki',
+            'itemListElement' => [
+                [
+                    '@type' => 'Offer',
+                    'name' => 'ZM Start',
+                    'price' => '1449',
+                    'priceCurrency' => 'PLN',
+                    'valueAddedTaxIncluded' => false,
+                    'url' => home_url('/oferta'),
+                ],
+                [
+                    '@type' => 'Offer',
+                    'name' => 'ZM LeadFlow',
+                    'price' => '4490',
+                    'priceCurrency' => 'PLN',
+                    'valueAddedTaxIncluded' => false,
+                    'url' => home_url('/oferta'),
+                ],
+                [
+                    '@type' => 'Offer',
+                    'name' => 'ZM Flow',
+                    'price' => '6900',
+                    'priceCurrency' => 'PLN',
+                    'valueAddedTaxIncluded' => false,
+                    'url' => home_url('/oferta'),
+                ],
+            ],
+        ],
     ];
     echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
 }
