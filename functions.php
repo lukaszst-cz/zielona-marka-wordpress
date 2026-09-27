@@ -369,7 +369,6 @@ function zm_create_required_pages(): void {
         'usprawnienia-firmy' => 'Usprawnienia firmy',
         'jak-pracuje' => 'Jak pracuję',
         'raport-qa' => 'Przykładowy raport kontroli jakości',
-        'umowa-przykladowa' => 'Przykładowy draft umowy',
         'kontakt' => 'Kontakt',
         'polityka-prywatnosci' => 'Polityka prywatności',
         'strony-dla-warsztatow' => 'Strony dla warsztatów',
