@@ -48,7 +48,7 @@ jobs:
           grep -Fq "status/([^/]+)/umowa" inc/client-status.php
           grep -Fq "status/([^/]+)/qa" inc/client-status.php
           grep -Fq "chatbot-dla-firm" functions.php
-          grep -Fq "define('ZM_VERSION', '1.4.2');" functions.php
+          grep -Fq "define('ZM_VERSION', '1.4.3');" functions.php
           grep -Fq "transport" page-transport.php
       - name: Verify local CSS assets
         run: |
