@@ -282,7 +282,7 @@ function zm_production_assets(): void {
     wp_enqueue_script('zm-production', zm_theme_asset('assets/js/production.js'), [], ZM_PRODUCTION_VERSION, true);
     wp_localize_script('zm-production', 'ZMTheme', [
         'assetBase' => zm_theme_asset('assets/'),
-        'forestVideo' => zm_theme_asset('assets/images/brand-review-v5/fern-moss-stream-20260919.mp4'),
+        'forestVideo' => 'https://www.zielona-marka.pl/brand-review-v5/fern-moss-stream-20260919.mp4',
     ]);
 }
 add_action('wp_enqueue_scripts', 'zm_production_assets', 50);
