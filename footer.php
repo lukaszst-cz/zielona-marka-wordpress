@@ -87,7 +87,14 @@
     <div class="footer-column footer-local">
       <h2>Warszawa · Targówek i okolice</h2>
       <a href="<?php echo esc_url(home_url('/strony-internetowe/targowek')); ?>">Targówek</a>
-      <span>Warszawa</span><span>Ząbki</span><span>Zielonka</span><span>Kobyłka</span><span>Wołomin</span><span>Radzymin</span><span>Białołęka</span><span>Marki</span>
+      <a href="<?php echo esc_url(home_url('/strony-internetowe/warszawa')); ?>">Warszawa</a>
+      <a href="<?php echo esc_url(home_url('/strony-internetowe/zabki')); ?>">Ząbki</a>
+      <a href="<?php echo esc_url(home_url('/strony-internetowe/zielonka')); ?>">Zielonka</a>
+      <a href="<?php echo esc_url(home_url('/strony-internetowe/kobylka')); ?>">Kobyłka</a>
+      <a href="<?php echo esc_url(home_url('/strony-internetowe/wolomin')); ?>">Wołomin</a>
+      <a href="<?php echo esc_url(home_url('/strony-internetowe/radzymin')); ?>">Radzymin</a>
+      <a href="<?php echo esc_url(home_url('/strony-internetowe/bialoleka')); ?>">Białołęka</a>
+      <a href="<?php echo esc_url(home_url('/strony-internetowe-marki')); ?>">Marki</a>
     </div>
   </div>
   <div class="shell footer-bottom">
