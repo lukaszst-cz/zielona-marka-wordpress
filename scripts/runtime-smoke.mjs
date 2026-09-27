@@ -77,8 +77,14 @@ const cli = await runCLI({
   },
 });
 
+async function requestRoute(path, options = {}) {
+  const url = new URL(path, cli.serverUrl);
+  console.log('CHECK', path, '->', url.href);
+  return fetch(url, { signal: AbortSignal.timeout(12000), ...options });
+}
+
 async function check200(path, marker) {
-  const response = await fetch(new URL(path, cli.serverUrl));
+  const response = await requestRoute(path);
   const html = await response.text();
   if (response.status !== 200) {
     throw new Error(`Expected final 200 for ${path}, got ${response.status} at ${response.url}\n${html.slice(0, 1000)}`);
@@ -89,7 +95,7 @@ async function check200(path, marker) {
 }
 
 async function checkStatus(path, allowed) {
-  const response = await fetch(new URL(path, cli.serverUrl), { redirect: 'manual' });
+  const response = await requestRoute(path, { redirect: 'manual' });
   if (!allowed.includes(response.status)) {
     throw new Error(`Expected ${allowed.join('/')} for ${path}, got ${response.status}`);
   }
