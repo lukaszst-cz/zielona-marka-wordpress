@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  php-lint:
+  theme-checks:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,3 +15,24 @@ jobs:
           php-version: '8.3'
       - name: Lint PHP files
         run: find . -name "*.php" -print0 | xargs -0 -n1 php -l
+      - name: Verify migration files
+        run: |
+          test -s front-page.php
+          test -s page-oferta.php
+          test -s page-lokalna.php
+          test -s page-jak-pracuje.php
+          test -s page-raport-qa.php
+          test -s inc/client-status.php
+          test -s status-client.php
+          test -s status-contract.php
+          test -s status-qa.php
+          test -s assets/css/live-home.css
+          test -s assets/js/live-home.js
+      - name: Verify key routes and hooks
+        run: |
+          grep -q "zm_local_landing_template" functions.php
+          grep -q "inc/client-status.php" functions.php
+          grep -q "zm_register_status_routes" inc/client-status.php
+          grep -q "status/([^/]+)/umowa" inc/client-status.php
+          grep -q "status/([^/]+)/qa" inc/client-status.php
+          grep -q "chatbot-dla-firm" functions.php
