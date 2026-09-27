@@ -191,6 +191,7 @@ function zm_create_required_pages(): void {
         'maly-crm-dla-firm' => 'Mały CRM dla firm',
         'usprawnienia-firmy' => 'Usprawnienia firmy',
         'jak-pracuje' => 'Jak pracuję',
+        'raport-qa' => 'Przykładowy raport kontroli jakości',
         'kontakt' => 'Kontakt',
         'polityka-prywatnosci' => 'Polityka prywatności',
         'strony-dla-warsztatow' => 'Strony dla warsztatów',
