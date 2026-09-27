@@ -214,7 +214,7 @@ function zm_document_title(string $title): string {
 add_filter('pre_get_document_title', 'zm_document_title');
 
 function zm_meta_tags(): void {
-    if (!(is_front_page() || is_page()) || (string) get_query_var('zm_status_code') !== '') {
+    if (!(is_front_page() || is_page()) || is_page(['status', 'umowa-przykladowa']) || (string) get_query_var('zm_status_code') !== '') {
         return;
     }
     if (defined('WPSEO_VERSION') || defined('RANK_MATH_VERSION') || defined('SEOPRESS_VERSION')) {
@@ -290,6 +290,34 @@ function zm_schema(): void {
 add_action('wp_head', 'zm_schema', 30);
 
 
+
+function zm_private_pages_robots(array $robots): array {
+    if (is_page(['status', 'umowa-przykladowa']) || (string) get_query_var('zm_status_code') !== '') {
+        $robots['noindex'] = true;
+        $robots['nofollow'] = true;
+    }
+    return $robots;
+}
+add_filter('wp_robots', 'zm_private_pages_robots', 40);
+
+function zm_exclude_private_pages_from_sitemap(array $args, string $post_type): array {
+    if ($post_type !== 'page') {
+        return $args;
+    }
+    $exclude = [];
+    foreach (['status', 'umowa-przykladowa'] as $slug) {
+        $page = get_page_by_path($slug);
+        if ($page instanceof WP_Post) {
+            $exclude[] = $page->ID;
+        }
+    }
+    if ($exclude) {
+        $args['post__not_in'] = array_values(array_unique(array_merge($args['post__not_in'] ?? [], $exclude)));
+    }
+    return $args;
+}
+add_filter('wp_sitemaps_posts_query_args', 'zm_exclude_private_pages_from_sitemap', 10, 2);
+
 function zm_render_contact_form(bool $audit = false): void {
     $brief_status = sanitize_key(wp_unslash($_GET['brief'] ?? ''));
     if ($brief_status === 'sent') {
@@ -328,6 +356,7 @@ function zm_create_required_pages(): void {
         'usprawnienia-firmy' => 'Usprawnienia firmy',
         'jak-pracuje' => 'Jak pracuję',
         'raport-qa' => 'Przykładowy raport kontroli jakości',
+        'umowa-przykladowa' => 'Przykładowy draft umowy',
         'kontakt' => 'Kontakt',
         'polityka-prywatnosci' => 'Polityka prywatności',
         'strony-dla-warsztatow' => 'Strony dla warsztatów',
