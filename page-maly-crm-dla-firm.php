@@ -24,6 +24,6 @@ $modules=[
 
 <section class="section shell industry-package"><div><span class="section-no">PUNKT STARTU</span><h2>CRM Start</h2><p>Klienci, zapytania, statusy, terminy, następny krok, eksport danych i mobilny panel PWA. Dokładny zakres ustalamy po krótkiej mapie procesu.</p></div><div><strong>od 4 900 zł netto</strong><span>zwykle 3–4 tygodnie</span><small>Automatyzacje, SMS, backup i dodatkowe role użytkowników wyceniamy zgodnie z zakresem.</small><a class="button" href="#crm-kontakt">Sprawdź swój proces <b>↗</b></a></div></section>
 
-<section class="section contact-section" id="crm-kontakt"><div class="shell contact-grid"><div><span class="section-no">KRÓTKA ANALIZA</span><h2>Powiedz, gdzie dziś zapisujesz klientów i zlecenia.</h2><p>Wskażę najmniejszy sensowny zakres CRM. Nie musisz znać technologii ani mieć gotowej specyfikacji.</p></div><div><?php zm_render_contact_form(); ?></div></div></section>
+<section class="section contact-section" id="crm-kontakt"><div class="shell contact-grid"><div><span class="section-no">KRÓTKA ANALIZA</span><h2>Powiedz, gdzie dziś zapisujesz klientów i zlecenia.</h2><p>Wskażę najmniejszy sensowny zakres CRM. Nie musisz znać technologii ani mieć gotowej specyfikacji.</p></div><div><?php zm_render_contact_form(true); ?></div></div></section>
 </main>
 <?php get_footer(); ?>
