@@ -5,7 +5,7 @@ require_once get_template_directory() . '/inc/client-status.php';
 require_once get_template_directory() . '/inc/mail.php';
 require_once get_template_directory() . '/inc/studio.php';
 
-define('ZM_VERSION', '1.4.3');
+define('ZM_VERSION', '1.4.4');
 
 function zm_setup(): void {
     add_theme_support('title-tag');
