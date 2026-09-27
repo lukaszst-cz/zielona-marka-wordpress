@@ -56,7 +56,7 @@ const cli = await runCLI({
   command: 'server',
   php: '8.3',
   wp: 'latest',
-  login: true,
+  login: false,
   mount: [
     {
       hostPath: '.',
