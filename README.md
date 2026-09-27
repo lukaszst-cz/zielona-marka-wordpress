@@ -6,6 +6,12 @@
 
 [Otwórz statyczny podgląd motywu](https://lukaszst-cz.github.io/zielona-marka-wordpress/preview/)
 
+## Roboczy podgląd migracji 1:1
+
+[Uruchom aktualną gałąź w WordPress Playground](https://playground.wordpress.net/?blueprint-url=https%3A%2F%2Fraw.githubusercontent.com%2Flukaszst-cz%2Fzielona-marka-wordpress%2Fsync-live-1to1-2026-09-27%2Fblueprint-preview.json)
+
+Podgląd instaluje i aktywuje bezpośrednio gałąź `sync-live-1to1-2026-09-27`, więc pokazuje bieżące zmiany przed scaleniem do `main`.
+
 ## Co zawiera
 
 - własne szablony PHP i konfigurację `theme.json`;
