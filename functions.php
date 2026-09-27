@@ -271,3 +271,28 @@ function zm_front_admin_bar(bool $show): bool {
     return is_front_page() ? false : $show;
 }
 add_filter('show_admin_bar', 'zm_front_admin_bar');
+
+
+/**
+ * Temporary compatibility routes for public demonstration apps.
+ * Keeps current portfolio URLs working while the demos remain deployed on GitHub Pages.
+ */
+function zm_demo_redirects(): void {
+    $path = trim((string) parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH), '/');
+    $targets = [
+        'demo/auto-naprawa' => 'https://lukaszst-cz.github.io/auto-naprawa-ksef-demo/',
+        'demo/auto-naprawa/portal' => 'https://lukaszst-cz.github.io/auto-naprawa-ksef-demo/portal/',
+        'demo/routeflow' => 'https://lukaszst-cz.github.io/transportflow-360/',
+        'demo/routeflow/portal' => 'https://lukaszst-cz.github.io/transportflow-360/portal/',
+    ];
+    if (!isset($targets[$path])) {
+        return;
+    }
+    $target = $targets[$path];
+    if (!empty($_GET)) {
+        $target = add_query_arg(wp_unslash($_GET), $target);
+    }
+    wp_redirect($target, 302);
+    exit;
+}
+add_action('template_redirect', 'zm_demo_redirects', 1);
