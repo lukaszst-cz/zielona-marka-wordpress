@@ -194,6 +194,8 @@ function zm_render_studio_dashboard(): void {
 
     $recent_inquiries = get_posts(['post_type'=>'zm_inquiry','post_status'=>['publish','private','draft'],'numberposts'=>5,'orderby'=>'date','order'=>'DESC']);
     $open_tasks = get_posts(['post_type'=>'zm_task','post_status'=>['publish','private','draft'],'numberposts'=>6,'orderby'=>'date','order'=>'DESC']);
+    $mail_config = function_exists('zm_mail_config') ? zm_mail_config() : ['configured' => false, 'host' => '', 'port' => 0, 'secure' => ''];
+    $mail_test = sanitize_key(wp_unslash($_GET['mailtest'] ?? ''));
     ?>
     <div class="wrap zm-studio-admin">
       <style>
@@ -209,7 +211,9 @@ function zm_render_studio_dashboard(): void {
         .zm-studio-card h2{margin:0 0 16px}.zm-studio-row{display:flex;justify-content:space-between;gap:18px;padding:12px 0;border-top:1px solid #e4e8e5}
         .zm-studio-row small{display:block;color:#69766f;margin-top:4px}
         .zm-studio-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
-        @media(max-width:900px){.zm-studio-kpis{grid-template-columns:1fr 1fr}.zm-studio-grid{grid-template-columns:1fr}}
+        .zm-studio-mail{margin-top:14px;display:flex;justify-content:space-between;gap:20px;align-items:center}
+        .zm-studio-mail p{margin:6px 0 0;color:#58645e}.zm-studio-mail strong.ok{color:#247341}.zm-studio-mail strong.warn{color:#9a5b12}
+        @media(max-width:900px){.zm-studio-kpis{grid-template-columns:1fr 1fr}.zm-studio-grid{grid-template-columns:1fr}.zm-studio-mail{align-items:flex-start;flex-direction:column}}
       </style>
       <div class="zm-studio-head"><div><h1>Studio Zielonej Marki</h1><p>Zapytania ze strony, sprzedaż, projekty klientów i zadania w jednym panelu WordPress. Publiczne dane klienta pozostają dostępne wyłącznie przez indywidualny kod projektu.</p></div><a class="button button-primary" href="<?php echo esc_url(home_url('/')); ?>" target="_blank">Podgląd strony ↗</a></div>
 
@@ -219,6 +223,22 @@ function zm_render_studio_dashboard(): void {
         <a href="<?php echo esc_url(admin_url('edit.php?post_type=zm_inquiry')); ?>"><span>Nowe zapytania</span><b><?php echo esc_html((string) $new_inquiries); ?></b><small>Skrzynka ze strony</small></a>
         <a href="<?php echo esc_url(admin_url('edit.php?post_type=zm_task')); ?>"><span>Pilne zadania</span><b><?php echo esc_html((string) $urgent); ?></b><small>Do działania</small></a>
       </div>
+
+      <?php if ($mail_test === 'sent'): ?><div class="notice notice-success is-dismissible"><p>Test poczty został wysłany. Sprawdź skrzynkę administratora.</p></div><?php endif; ?>
+      <?php if ($mail_test === 'error'): ?><div class="notice notice-error is-dismissible"><p>Test poczty nie został wysłany. Sprawdź konfigurację SMTP oraz skrzynkę nadawczą.</p></div><?php endif; ?>
+
+      <section class="zm-studio-card zm-studio-mail">
+        <div>
+          <h2>Poczta serwisu</h2>
+          <p><strong class="<?php echo $mail_config['configured'] ? 'ok' : 'warn'; ?>"><?php echo $mail_config['configured'] ? 'SMTP skonfigurowane' : 'SMTP wymaga danych dostępowych'; ?></strong></p>
+          <p><?php echo esc_html(($mail_config['host'] ?: 'mail.cba.pl') . ':' . ((int) ($mail_config['port'] ?: 587))); ?> · <?php echo esc_html(strtoupper((string) ($mail_config['secure'] ?: 'tls'))); ?></p>
+        </div>
+        <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+          <input type="hidden" name="action" value="zm_mail_test">
+          <?php wp_nonce_field('zm_mail_test'); ?>
+          <button class="button button-primary" type="submit" <?php disabled(!$mail_config['configured']); ?>>Wyślij test poczty</button>
+        </form>
+      </section>
 
       <div class="zm-studio-grid">
         <section class="zm-studio-card"><h2>Ostatnie zapytania</h2>
