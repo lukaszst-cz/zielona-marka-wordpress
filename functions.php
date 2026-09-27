@@ -409,6 +409,7 @@ function zm_create_required_pages(): void {
             'natura' => 'Natura Studio — zaplecze',
             'bistro' => 'Bistro Forma — zaplecze',
             'dom' => 'Dom Dobry — zaplecze',
+            'transport' => 'Transport — interaktywne demo',
         ],
         'realizacje' => [
             'natura-studio' => 'Natura Studio',
