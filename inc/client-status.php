@@ -11,7 +11,7 @@ function zm_register_client_project_type(): void {
         ],
         'public' => false,
         'show_ui' => true,
-        'show_in_menu' => true,
+        'show_in_menu' => 'zm-studio',
         'menu_icon' => 'dashicons-clipboard',
         'supports' => ['title'],
         'show_in_rest' => false,
