@@ -8,7 +8,8 @@
   "login": true,
   "siteOptions": {
     "blogname": "Zielona Marka — WordPress 1:1",
-    "blogdescription": "Podgląd motywu WordPress"
+    "blogdescription": "Podgląd motywu WordPress",
+    "permalink_structure": "/%postname%/"
   },
   "steps": [
     {
