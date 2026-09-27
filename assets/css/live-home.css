@@ -119,13 +119,9 @@ url("../images/fern-stream-hero.png") center/cover no-repeat;transform:scale(1.0
 .live-cooperation{padding:130px 0;background:#08251a}
 .live-coop-grid{display:grid;grid-template-columns:1fr .82fr;gap:8vw;align-items:center}
 .live-coop-copy>p{font-size:18px;line-height:1.7;color:#c3d0c8}
-.live-coop-photo{display:grid;gap:12px}
-.live-photo-placeholder{min-height:430px;border-radius:24px;background:
-linear-gradient(160deg,rgba(9,38,26,.22),rgba(3,20,14,.88)),
-url("../images/fern-stream-hero.png") center/cover;display:flex;flex-direction:column;justify-content:flex-end;padding:30px;border:1px solid var(--zm-line)}
-.live-photo-placeholder span{font-size:10px;letter-spacing:.16em;color:var(--zm-lime)}
-.live-photo-placeholder b{font-size:24px;line-height:1.1;margin-top:10px}
-.live-coop-photo small{color:#84988c}
+.live-coop-photo{display:grid;gap:12px;margin:0}
+.live-coop-photo img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:24px;border:1px solid var(--zm-line);box-shadow:0 30px 80px rgba(0,0,0,.22)}
+.live-coop-photo figcaption{color:#84988c;font-size:12px;line-height:1.45}
 .live-coop-steps{display:grid;grid-template-columns:repeat(3,1fr);margin-top:80px;border-top:1px solid var(--zm-line);border-bottom:1px solid var(--zm-line)}
 .live-coop-steps article{padding:28px;border-right:1px solid var(--zm-line)}
 .live-coop-steps article:last-child{border-right:0}
