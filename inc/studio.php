@@ -87,7 +87,13 @@ function zm_inquiry_meta_box(WP_Post $post): void {
     zm_admin_field('zm_name', 'Imię', (string) get_post_meta($post->ID, 'zm_name', true));
     zm_admin_field('zm_email', 'E-mail', (string) get_post_meta($post->ID, 'zm_email', true), 'email');
     zm_admin_field('zm_company', 'Firma', (string) get_post_meta($post->ID, 'zm_company', true));
+    zm_admin_field('zm_phone', 'Telefon', (string) get_post_meta($post->ID, 'zm_phone', true));
     zm_admin_field('zm_budget', 'Budżet', (string) get_post_meta($post->ID, 'zm_budget', true));
+    zm_admin_field('zm_timeline', 'Planowany termin', (string) get_post_meta($post->ID, 'zm_timeline', true));
+    zm_admin_field('zm_goal', 'Najważniejszy efekt', (string) get_post_meta($post->ID, 'zm_goal', true));
+    zm_admin_field('zm_commerce', 'Sprzedaż / płatności', (string) get_post_meta($post->ID, 'zm_commerce', true));
+    zm_admin_field('zm_website', 'Adres obecnej strony', (string) get_post_meta($post->ID, 'zm_website', true), 'url');
+    zm_admin_field('zm_audit', 'Tryb minioceny', (string) get_post_meta($post->ID, 'zm_audit', true));
     zm_admin_field('zm_status', 'Status', (string) get_post_meta($post->ID, 'zm_status', true) ?: 'Nowe', 'select-status-inquiry');
     zm_admin_field('zm_project_type', 'Potrzeba', (string) get_post_meta($post->ID, 'zm_project_type', true));
     zm_admin_field('zm_message', 'Wiadomość', (string) get_post_meta($post->ID, 'zm_message', true), 'textarea', true);
@@ -133,7 +139,7 @@ function zm_save_studio_meta(int $post_id): void {
     if (!current_user_can('edit_post', $post_id)) { return; }
 
     $keys = [
-        'zm_inquiry' => ['name','email','company','budget','status','project_type','message'],
+        'zm_inquiry' => ['name','email','company','phone','budget','timeline','goal','commerce','website','audit','status','project_type','message'],
         'zm_lead' => ['name','company','email','value','stage','next_action','due_date','source'],
         'zm_task' => ['status','priority','due_date','project_id'],
     ];
@@ -239,13 +245,13 @@ function zm_store_inquiry(array $data): int {
     ]);
     if (is_wp_error($id) || !$id) { return 0; }
 
-    $map = ['name','email','company','budget','project_type','message'];
-    foreach ($map as $key) {
-        update_post_meta($id, 'zm_' . $key, sanitize_textarea_field((string) ($data[$key] ?? '')));
+    $text_fields = ['name','company','phone','budget','timeline','project_type','goal','commerce','audit'];
+    foreach ($text_fields as $key) {
+        update_post_meta($id, 'zm_' . $key, sanitize_text_field((string) ($data[$key] ?? '')));
     }
-    update_post_meta($id, 'zm_status', 'Nowe');
-    update_post_meta($id, 'zm_goal', sanitize_text_field((string) ($data['goal'] ?? '')));
-    update_post_meta($id, 'zm_commerce', sanitize_text_field((string) ($data['commerce'] ?? '')));
+    update_post_meta($id, 'zm_email', sanitize_email((string) ($data['email'] ?? '')));
+    update_post_meta($id, 'zm_message', sanitize_textarea_field((string) ($data['message'] ?? '')));
     update_post_meta($id, 'zm_website', esc_url_raw((string) ($data['website'] ?? '')));
+    update_post_meta($id, 'zm_status', 'Nowe');
     return (int) $id;
 }
