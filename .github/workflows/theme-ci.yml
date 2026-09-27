@@ -26,6 +26,7 @@ jobs:
           test -s inc/studio.php
           test -s page-studio.php
           test -s page-umowa-przykladowa.php
+          test -s page-transport.php
           test -s status-client.php
           test -s status-contract.php
           test -s status-qa.php
@@ -41,6 +42,8 @@ jobs:
           grep -Fq "status/([^/]+)/umowa" inc/client-status.php
           grep -Fq "status/([^/]+)/qa" inc/client-status.php
           grep -Fq "chatbot-dla-firm" functions.php
+          grep -Fq "ZM_VERSION\x27, \x271.4.0" functions.php
+          grep -Fq "transport" page-transport.php
       - name: Validate Playground blueprints
         run: |
           python -m json.tool blueprint.json >/dev/null
