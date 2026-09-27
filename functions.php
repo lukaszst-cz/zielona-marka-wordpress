@@ -2,6 +2,7 @@
 if (!defined('ABSPATH')) { exit; }
 
 require_once get_template_directory() . '/inc/client-status.php';
+require_once get_template_directory() . '/inc/studio.php';
 
 define('ZM_VERSION', '1.3.0');
 
@@ -133,6 +134,18 @@ function zm_handle_brief(): void {
     $recipient = get_theme_mod('zm_email', get_option('admin_email'));
     $subject = sprintf(__('Nowy brief: %s', 'zielona-marka'), $company ?: $name);
     $body = "Imię: {$name}\nE-mail: {$email}\nTelefon: {$phone}\nFirma: {$company}\nPotrzeba: {$project_type}\nNajważniejszy efekt: {$goal}\nSprzedaż lub płatności: {$commerce}\nAdres strony: {$website}\nPlanowany termin: {$timeline}\nTryb minioceny: " . ($audit ? 'tak' : 'nie') . "\nBudżet: {$budget}\n\nOpis projektu:\n{$message}";
+
+    zm_store_inquiry([
+        'name' => $name,
+        'email' => $email,
+        'company' => $company,
+        'budget' => $budget,
+        'project_type' => $project_type,
+        'goal' => $goal,
+        'commerce' => $commerce,
+        'website' => $website,
+        'message' => $message,
+    ]);
     $sent = wp_mail($recipient, $subject, $body, ['Reply-To: ' . $name . ' <' . $email . '>']);
     wp_safe_redirect(add_query_arg('brief', $sent ? 'sent' : 'error', wp_get_referer() ?: home_url('/')) . '#kontakt');
     exit;
@@ -367,6 +380,8 @@ function zm_create_required_pages(): void {
         'strony-internetowe' => 'Strony internetowe',
         'en' => 'English',
         'status' => 'Status projektu',
+        'studio' => 'Studio',
+        'umowa-przykladowa' => 'Przykładowy draft umowy',
         'demo' => 'Demo',
     ];
 
