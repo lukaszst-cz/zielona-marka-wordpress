@@ -48,16 +48,24 @@ jobs:
         run: |
           python -m json.tool blueprint.json >/dev/null
           python -m json.tool blueprint-preview.json >/dev/null
+          python -m json.tool blueprint-ci.json >/dev/null
           grep -Fq "sync-live-1to1-2026-09-27" blueprint-preview.json
 
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Prepare local Playground bundle
+        run: |
+          rm -rf .playground-ci
+          mkdir -p .playground-ci
+          cp blueprint-ci.json .playground-ci/blueprint.json
+          zip -qr .playground-ci/theme.zip . -x ".git/*" ".playground-ci/*"
+          python -m json.tool .playground-ci/blueprint.json >/dev/null
       - name: Start WordPress Playground
         run: |
-          nohup npx --yes @wp-playground/cli@latest server --blueprint=blueprint-preview.json --skip-browser --port=9400 > /tmp/playground.log 2>&1 &
+          nohup npx --yes @wp-playground/cli@latest server --blueprint=.playground-ci --skip-browser --port=9400 > /tmp/playground.log 2>&1 &
           echo $! > /tmp/playground.pid
-          for i in $(seq 1 60); do
+          for i in $(seq 1 75); do
             if curl -fsS http://127.0.0.1:9400/ > /tmp/playground-home.html; then
               exit 0
             fi
