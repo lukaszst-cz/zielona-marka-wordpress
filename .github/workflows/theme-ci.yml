@@ -30,14 +30,14 @@ jobs:
           test -s assets/js/live-home.js
       - name: Verify key routes and hooks
         run: |
-          grep -q "zm_local_landing_template" functions.php
-          grep -q "inc/client-status.php" functions.php
-          grep -q "zm_register_status_routes" inc/client-status.php
-          grep -q "status/([^/]+)/umowa" inc/client-status.php
-          grep -q "status/([^/]+)/qa" inc/client-status.php
-          grep -q "chatbot-dla-firm" functions.php
+          grep -Fq "zm_local_landing_template" functions.php
+          grep -Fq "inc/client-status.php" functions.php
+          grep -Fq "zm_register_status_routes" inc/client-status.php
+          grep -Fq "status/([^/]+)/umowa" inc/client-status.php
+          grep -Fq "status/([^/]+)/qa" inc/client-status.php
+          grep -Fq "chatbot-dla-firm" functions.php
       - name: Validate Playground blueprints
         run: |
           python -m json.tool blueprint.json >/dev/null
           python -m json.tool blueprint-preview.json >/dev/null
-          grep -q "sync-live-1to1-2026-09-27" blueprint-preview.json
+          grep -Fq "sync-live-1to1-2026-09-27" blueprint-preview.json
