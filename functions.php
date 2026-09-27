@@ -139,11 +139,14 @@ function zm_handle_brief(): void {
         'name' => $name,
         'email' => $email,
         'company' => $company,
+        'phone' => $phone,
         'budget' => $budget,
+        'timeline' => $timeline,
         'project_type' => $project_type,
         'goal' => $goal,
         'commerce' => $commerce,
         'website' => $website,
+        'audit' => $audit ? 'tak' : 'nie',
         'message' => $message,
     ]);
     $sent = wp_mail($recipient, $subject, $body, ['Reply-To: ' . $name . ' <' . $email . '>']);
