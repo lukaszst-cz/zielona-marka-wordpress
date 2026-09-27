@@ -19,7 +19,7 @@ add_action('after_setup_theme', 'zm_setup');
 function zm_assets(): void {
     wp_enqueue_style('zm-main', get_template_directory_uri() . '/assets/css/main.css', [], ZM_VERSION);
 
-    if (is_front_page()) {
+    if (is_front_page() || is_page('en')) {
         wp_enqueue_style('zm-live-home', get_template_directory_uri() . '/assets/css/live-home.css', ['zm-main'], ZM_VERSION);
         wp_enqueue_script('zm-live-home', get_template_directory_uri() . '/assets/js/live-home.js', [], ZM_VERSION, true);
     }
