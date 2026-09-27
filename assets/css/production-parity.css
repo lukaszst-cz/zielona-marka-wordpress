@@ -743,3 +743,158 @@ body.zm-page-maly-crm-dla-firm #moduly .section-head h2{
     padding-bottom:62px;
   }
 }
+
+
+/* Visual parity pass 3 — crop, overlap and mobile header */
+body.home .live-hero:before,
+body.zm-public-page main>.page-hero:before{
+  background-position:42% center;
+}
+body.home .live-hero h1 em{
+  color:#edf3df;
+  font-weight:300;
+}
+
+/* Public hero sizing closer to production */
+body.zm-public-page main>.page-hero{
+  padding-top:88px;
+}
+body.zm-public-page main>.page-hero h1{
+  max-width:900px;
+}
+
+/* Offer cards sit inside the photographic field before the grey body */
+body.zm-page-oferta main>.page-hero + .section.shell{
+  position:relative;
+  z-index:3;
+  width:100%;
+  max-width:none;
+  margin-top:-76px;
+  padding:76px max(24px,calc((100vw - 1180px)/2)) 90px;
+  background:
+    linear-gradient(to bottom,rgba(3,28,18,.22) 0 50%,rgba(143,153,146,.92) 50% 100%),
+    url("../images/fern-stream-hero.png") 42% 26%/cover no-repeat;
+}
+body.zm-page-oferta .offer-page-packages{
+  margin-top:0;
+}
+body.zm-page-oferta .offer-page-packages article{
+  background:rgba(13,48,33,.60);
+}
+body.zm-page-oferta .offer-page-packages article.featured{
+  background:rgba(6,42,27,.82);
+}
+
+/* Projects overlap hero instead of starting after a visual gap */
+body.zm-page-realizacje #projekty{
+  position:relative;
+  z-index:3;
+  margin-top:-56px;
+  padding-top:56px;
+}
+body.zm-page-realizacje .project-case:first-child{
+  box-shadow:0 24px 60px rgba(13,34,24,.18);
+}
+
+/* Contact keeps the fern atmosphere behind the first part of the form */
+body.zm-page-kontakt .contact-section{
+  background:
+    linear-gradient(to bottom,rgba(3,27,18,.66) 0 34%,rgba(144,154,147,.96) 34% 100%),
+    url("../images/fern-stream-hero.png") 42% 54%/cover no-repeat;
+}
+body.zm-page-kontakt .contact-section .section-no,
+body.zm-page-kontakt .contact-form-kicker{
+  color:var(--parity-lime);
+}
+body.zm-page-kontakt .contact-grid{
+  align-items:start;
+}
+
+/* CRM problem block continues the same photographic scene */
+body.zm-page-maly-crm-dla-firm .crm-problem{
+  position:relative;
+  background:
+    linear-gradient(rgba(3,29,19,.70),rgba(3,29,19,.78)),
+    url("../images/fern-stream-hero.png") 42% 72%/cover no-repeat;
+}
+body.zm-page-maly-crm-dla-firm .crm-problem{
+  padding-top:78px;
+  padding-bottom:78px;
+}
+
+/* Slightly wider project cards, closer to production rhythm */
+body.zm-page-realizacje .project-list{
+  max-width:1180px;
+  margin-inline:auto;
+}
+body.zm-page-realizacje .project-case{
+  grid-template-columns:1.12fr .88fr;
+}
+
+/* Mobile production header: logo + Menu only */
+@media(max-width:760px){
+  body:not(.wp-admin) .site-header .language-switch{
+    display:none;
+  }
+  body:not(.wp-admin) .site-header .brand{
+    max-width:205px;
+  }
+  body:not(.wp-admin) .site-header .brand-signature{
+    min-width:195px;
+  }
+  body:not(.wp-admin) .site-header .brand-apple{
+    width:66px;
+    height:58px;
+  }
+  body:not(.wp-admin) .site-header .brand-wordmark{
+    transform:translateY(7px);
+  }
+  body:not(.wp-admin) .site-header .brand-wordmark b,
+  body:not(.wp-admin) .site-header .brand-wordmark b:last-of-type{
+    font-size:17px;
+  }
+  body:not(.wp-admin) .site-header .brand-wordmark small{
+    display:block;
+    font-size:5.8px;
+  }
+  body:not(.wp-admin) .mobile-menu{
+    right:12px;
+  }
+
+  body.home .live-hero:before,
+  body.zm-public-page main>.page-hero:before{
+    background-position:40% center;
+  }
+
+  body.zm-page-oferta main>.page-hero + .section.shell{
+    margin-top:-34px;
+    padding:34px 13px 72px;
+    background:
+      linear-gradient(to bottom,rgba(3,28,18,.12) 0 88%,rgba(143,153,146,.94) 88% 100%),
+      url("../images/fern-stream-hero.png") 40% 34%/cover no-repeat;
+  }
+
+  body.zm-page-realizacje #projekty{
+    margin-top:-24px;
+    padding-top:24px;
+  }
+
+  body.zm-page-kontakt .contact-section{
+    background:
+      linear-gradient(to bottom,rgba(3,27,18,.68) 0 24%,rgba(144,154,147,.97) 24% 100%),
+      url("../images/fern-stream-hero.png") 40% 45%/cover no-repeat;
+  }
+
+  body.zm-page-maly-crm-dla-firm .crm-problem{
+    padding-top:58px;
+    padding-bottom:58px;
+    background:
+      linear-gradient(rgba(3,29,19,.72),rgba(3,29,19,.80)),
+      url("../images/fern-stream-hero.png") 40% 70%/cover no-repeat;
+  }
+
+  body.home .live-story-row{
+    padding-top:42px!important;
+    padding-bottom:54px!important;
+  }
+}
