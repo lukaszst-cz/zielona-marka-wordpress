@@ -91,9 +91,40 @@ jobs:
         run: |
           rm -rf dist
           mkdir -p dist/zielona-marka
-          rsync -a ./ dist/zielona-marka/             --exclude '.git/'             --exclude '.github/'             --exclude 'scripts/'             --exclude 'preview/'             --exclude 'visual-qa/'             --exclude 'dist/'             --exclude 'blueprint*.json'             --exclude 'README.md'             --exclude 'index.html'
+          rsync -a ./ dist/zielona-marka/ \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            --exclude 'node_modules/' \
+            --exclude 'scripts/' \
+            --exclude 'preview/' \
+            --exclude 'visual-qa/' \
+            --exclude 'dist/' \
+            --exclude 'blueprint*.json' \
+            --exclude 'README.md' \
+            --exclude 'index.html' \
+            --exclude 'package.json' \
+            --exclude 'package-lock.json'
           cd dist
           zip -qr zielona-marka-wordpress-1.4.4.zip zielona-marka
+      - name: Verify installable theme package
+        run: |
+          ZIP="dist/zielona-marka-wordpress-1.4.4.zip"
+          zipinfo -1 "$ZIP" | grep -Fq "zielona-marka/style.css"
+          zipinfo -1 "$ZIP" | grep -Fq "zielona-marka/functions.php"
+          zipinfo -1 "$ZIP" | grep -Fq "zielona-marka/inc/mail.php"
+          if zipinfo -1 "$ZIP" | grep -E '(^|/)(node_modules|\.github|scripts|preview|visual-qa)(/|$)|blueprint.*\.json$|README\.md$|package(-lock)?\.json$|/index\.html
+        uses: actions/upload-artifact@v4
+        with:
+          name: zielona-marka-wordpress-1.4.4
+          path: dist/zielona-marka-wordpress-1.4.4.zip
+          if-no-files-found: error
+          retention-days: 14
+; then
+            echo "Development files found in installable package."
+            exit 1
+          fi
+          SIZE=$(stat -c%s "$ZIP")
+          test "$SIZE" -lt 50000000 || { echo "Theme package is unexpectedly large: $SIZE bytes"; exit 1; }
       - name: Upload installable theme package
         uses: actions/upload-artifact@v4
         with:
