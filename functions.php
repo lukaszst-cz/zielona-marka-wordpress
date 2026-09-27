@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) { exit; }
 require_once get_template_directory() . '/inc/client-status.php';
 require_once get_template_directory() . '/inc/studio.php';
 
-define('ZM_VERSION', '1.4.0');
+define('ZM_VERSION', '1.4.1');
 
 function zm_setup(): void {
     add_theme_support('title-tag');
@@ -29,9 +29,33 @@ function zm_assets(): void {
         wp_enqueue_style('zm-detailflow', get_template_directory_uri() . '/assets/css/detailflow.css', ['zm-main'], ZM_VERSION);
     }
 
+    $parity_deps = is_front_page() || is_page('en') ? ['zm-live-home'] : ['zm-main'];
+    wp_enqueue_style('zm-production-parity', get_template_directory_uri() . '/assets/css/production-parity.css', $parity_deps, ZM_VERSION);
+
     wp_enqueue_script('zm-main', get_template_directory_uri() . '/assets/js/main.js', [], ZM_VERSION, true);
 }
 add_action('wp_enqueue_scripts', 'zm_assets');
+
+function zm_body_classes(array $classes): array {
+    if (is_front_page()) {
+        $classes[] = 'zm-public-page';
+        $classes[] = 'zm-page-home';
+        return $classes;
+    }
+
+    if (is_page()) {
+        $page = get_queried_object();
+        if ($page instanceof WP_Post) {
+            $slug = sanitize_html_class($page->post_name);
+            $classes[] = 'zm-public-page';
+            $classes[] = 'zm-page-' . $slug;
+        }
+    }
+
+    return $classes;
+}
+add_filter('body_class', 'zm_body_classes');
+
 
 function zm_register_project_type(): void {
     register_post_type('realizacja', [
