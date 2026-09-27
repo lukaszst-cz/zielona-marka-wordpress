@@ -78,10 +78,10 @@ const cli = await runCLI({
 });
 
 async function check200(path, marker) {
-  const response = await fetch(new URL(path, cli.serverUrl), { redirect: 'manual' });
+  const response = await fetch(new URL(path, cli.serverUrl));
   const html = await response.text();
   if (response.status !== 200) {
-    throw new Error(`Expected 200 for ${path}, got ${response.status}\n${html.slice(0, 1000)}`);
+    throw new Error(`Expected final 200 for ${path}, got ${response.status} at ${response.url}\n${html.slice(0, 1000)}`);
   }
   if (!html.includes(marker)) {
     throw new Error(`Marker not found for ${path}: ${marker}`);
