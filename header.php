@@ -29,7 +29,7 @@
           <a href="<?php echo esc_url(home_url('/strony-dla-beauty')); ?>">Beauty</a>
           <a href="<?php echo esc_url(home_url('/strony-dla-warsztatow')); ?>">Warsztaty</a>
           <a href="<?php echo esc_url(home_url('/asystent-zapytan')); ?>">Asystent zapytań</a>
-          <a href="<?php echo esc_url(home_url('/asystent-zapytan')); ?>">Chatbot dla firmy</a>
+          <a href="<?php echo esc_url(home_url('/chatbot-dla-firm')); ?>">Chatbot dla firmy</a>
           <a href="<?php echo esc_url(home_url('/strony-internetowe/targowek')); ?>">Warszawa · Targówek</a>
         </div>
       </details>
