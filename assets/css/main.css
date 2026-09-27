@@ -340,3 +340,25 @@ body.admin-bar .site-header{top:32px}
 @media(max-width:1100px){.site-footer .footer-live-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:900px){.site-header .nav-offer{display:none}}
 @media(max-width:650px){.site-footer .footer-live-grid{grid-template-columns:1fr;gap:30px}.site-footer .footer-bottom{flex-wrap:wrap}.site-footer .footer-bottom a{margin-left:0}}
+
+
+/* How-we-work production sync */
+.work-meeting{background:#e6ece2}
+.work-meeting-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.work-meeting-grid h2{font:400 clamp(44px,5.8vw,78px)/.95 Georgia,serif;letter-spacing:-.055em;margin:16px 0 28px}
+.work-meeting-grid p{line-height:1.7;color:#53645a}
+.work-meeting-grid figure{margin:0}
+.work-meeting-grid img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:22px;box-shadow:0 24px 70px rgba(17,57,39,.14)}
+.work-meeting-grid figcaption{margin-top:10px;font-size:11px;color:#6f7e76}
+.work-tools{padding-top:110px;padding-bottom:110px}
+.work-tool-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(17,57,39,.16);margin-top:42px}
+.work-tool-grid article{padding:28px;background:#fbfbf6;min-height:235px}
+.work-tool-grid span,.work-technical-grid span{font-size:10px;letter-spacing:.12em;color:var(--green);font-weight:900}
+.work-tool-grid h3,.work-technical-grid h3{font:400 28px/1.05 Georgia,serif;margin:24px 0 12px}
+.work-tool-grid p,.work-technical-grid p{margin:0;line-height:1.65;color:#58685f;font-size:14px}
+.work-technical{background:#eef1e9}
+.work-technical-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(17,57,39,.16);margin-top:42px}
+.work-technical-grid article{padding:26px;background:#f8faf5;min-height:240px}
+.qa-section .text-link{display:inline-block;margin-top:18px}
+@media(max-width:900px){.work-meeting-grid{grid-template-columns:1fr;gap:45px}.work-tool-grid,.work-technical-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.work-tool-grid,.work-technical-grid{grid-template-columns:1fr}.work-meeting-grid h2{font-size:46px}}
