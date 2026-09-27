@@ -34,3 +34,25 @@ Podgląd instaluje i aktywuje bezpośrednio gałąź `sync-live-1to1-2026-09-27`
 4. W **Ustawienia → Bezpośrednie odnośniki** kliknij „Zapisz zmiany”.
 
 Formularz korzysta z `wp_mail()`; przed publikacją warto skonfigurować SMTP i wysłać wiadomość testową.
+
+
+## SMTP na CBA
+
+Motyw korzysta z `wp_mail()`. Na hostingu CBA można włączyć wysyłkę SMTP bez zapisywania hasła w repozytorium.
+
+W `wp-config.php` dodaj:
+
+```php
+define('ZM_SMTP_USER', 'kontakt@zielona-marka.pl');
+define('ZM_SMTP_PASS', 'TU_WPISZ_HASLO_SKRZYNKI');
+define('ZM_MAIL_FROM', 'kontakt@zielona-marka.pl');
+```
+
+Domyślne parametry motywu:
+- host: `mail.cba.pl`
+- port: `587`
+- zabezpieczenie: `STARTTLS`
+
+Opcjonalnie można nadpisać `ZM_SMTP_HOST`, `ZM_SMTP_PORT`, `ZM_SMTP_SECURE` i `ZM_MAIL_FROM_NAME`.
+
+Po wdrożeniu wejdź do **Zielona Marka → Pulpit** i użyj przycisku **Wyślij test poczty**. Status SMTP nie pokazuje loginu ani hasła.
