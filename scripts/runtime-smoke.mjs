@@ -103,6 +103,8 @@ async function checkStatus(path, allowed) {
   }
 }
 
+let exitCode = 0;
+
 try {
   await check200('/', 'Masz dobrą firmę.');
   await check200('/oferta/', 'ZM Start');
@@ -125,6 +127,18 @@ try {
   await checkStatus('/nie-istnieje-zielona-marka/', [404]);
 
   console.log('Runtime WordPress smoke tests passed:', cli.serverUrl);
+} catch (error) {
+  exitCode = 1;
+  console.error(error);
 } finally {
-  await cli.server.close();
+  console.log('Closing WordPress Playground...');
+  await Promise.race([
+    cli.server.close(),
+    new Promise((resolve) => setTimeout(() => {
+      console.warn('Playground close timeout reached; forcing process exit.');
+      resolve();
+    }, 5000)),
+  ]);
 }
+
+process.exit(exitCode);
