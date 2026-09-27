@@ -104,7 +104,7 @@ try {
   await check200('/realizacje/', 'REALIZACJE I DEMONSTRACJE');
   await check200('/strony-internetowe/targowek/', 'TARGÓWEK');
   await check200('/strony-internetowe/warszawa/', 'WARSZAWA');
-  await check200('/demo/natura/', 'Natura Studio');
+  await check200('/demo/natura/', 'NATURA STUDIO');
   await check200('/demo/transport/', 'ZIELONY TRANSPORT');
   await check200('/en/', 'You have a good business.');
   await check200('/status/', 'STREFA KLIENTA');
