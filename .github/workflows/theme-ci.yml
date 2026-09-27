@@ -35,6 +35,7 @@ jobs:
           test -s status-contract.php
           test -s status-qa.php
           test -s assets/css/live-home.css
+          test -s assets/css/production-parity.css
           test -s assets/js/live-home.js
           test -s scripts/runtime-smoke.mjs
       - name: Verify key routes and hooks
@@ -47,7 +48,7 @@ jobs:
           grep -Fq "status/([^/]+)/umowa" inc/client-status.php
           grep -Fq "status/([^/]+)/qa" inc/client-status.php
           grep -Fq "chatbot-dla-firm" functions.php
-          grep -Fq "define('ZM_VERSION', '1.4.0');" functions.php
+          grep -Fq "define('ZM_VERSION', '1.4.1');" functions.php
           grep -Fq "transport" page-transport.php
       - name: Verify local CSS assets
         run: |
