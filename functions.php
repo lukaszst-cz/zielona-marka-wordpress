@@ -100,8 +100,11 @@ function zm_handle_brief(): void {
     $email = sanitize_email(wp_unslash($_POST['email'] ?? ''));
     $company = sanitize_text_field(wp_unslash($_POST['company'] ?? ''));
     $project_type = sanitize_text_field(wp_unslash($_POST['projectType'] ?? ''));
+    $goal = sanitize_text_field(wp_unslash($_POST['goal'] ?? ''));
+    $commerce = sanitize_text_field(wp_unslash($_POST['commerce'] ?? ''));
     $budget = sanitize_text_field(wp_unslash($_POST['budget'] ?? ''));
     $timeline = sanitize_text_field(wp_unslash($_POST['timeline'] ?? ''));
+    $honeypot = sanitize_text_field(wp_unslash($_POST['companyWebsite'] ?? ''));
     $message = sanitize_textarea_field(wp_unslash($_POST['message'] ?? ''));
     $website = esc_url_raw(wp_unslash($_POST['website'] ?? ''));
     $audit = !empty($_POST['audit']);
@@ -114,6 +117,11 @@ function zm_handle_brief(): void {
         $project_type = 'Asystent dla firmy';
     }
 
+    if ($honeypot !== '') {
+        wp_safe_redirect(add_query_arg('brief', 'sent', wp_get_referer() ?: home_url('/')) . '#kontakt');
+        exit;
+    }
+
     if (!$name || !is_email($email) || !$message) {
         wp_safe_redirect(add_query_arg('brief', 'error', wp_get_referer() ?: home_url('/')) . '#kontakt');
         exit;
@@ -121,7 +129,7 @@ function zm_handle_brief(): void {
 
     $recipient = get_theme_mod('zm_email', get_option('admin_email'));
     $subject = sprintf(__('Nowy brief: %s', 'zielona-marka'), $company ?: $name);
-    $body = "Imię: {$name}\nE-mail: {$email}\nTelefon: {$phone}\nFirma: {$company}\nPotrzeba: {$project_type}\nAdres strony: {$website}\nPlanowany termin: {$timeline}\nTryb minioceny: " . ($audit ? 'tak' : 'nie') . "\nBudżet: {$budget}\n\nOpis projektu:\n{$message}";
+    $body = "Imię: {$name}\nE-mail: {$email}\nTelefon: {$phone}\nFirma: {$company}\nPotrzeba: {$project_type}\nNajważniejszy efekt: {$goal}\nSprzedaż lub płatności: {$commerce}\nAdres strony: {$website}\nPlanowany termin: {$timeline}\nTryb minioceny: " . ($audit ? 'tak' : 'nie') . "\nBudżet: {$budget}\n\nOpis projektu:\n{$message}";
     $sent = wp_mail($recipient, $subject, $body, ['Reply-To: ' . $name . ' <' . $email . '>']);
     wp_safe_redirect(add_query_arg('brief', $sent ? 'sent' : 'error', wp_get_referer() ?: home_url('/')) . '#kontakt');
     exit;
@@ -160,8 +168,12 @@ function zm_render_contact_form(bool $audit = false): void {
         <label>Imię<input required name="name" placeholder="Jak masz na imię?" autocomplete="name"></label>
         <label>E-mail<input required type="email" name="email" placeholder="twoj@email.pl" autocomplete="email"></label>
         <label>Firma <span>(opcjonalnie)</span><input name="company" placeholder="Nazwa firmy" autocomplete="organization"></label>
+        <input class="form-honeypot" name="companyWebsite" tabindex="-1" autocomplete="off" aria-hidden="true">
         <?php if ($audit) : ?><label>Adres obecnej strony <span>(opcjonalnie)</span><input name="website" type="url" placeholder="https://twoja-strona.pl"></label><?php endif; ?>
         <label>Czego potrzebujesz?<select required name="projectType"><option value="" disabled selected>Wybierz najbliższą odpowiedź</option><option>Strona dla warsztatu lub detailingu</option><option>Strona dla firmy remontowej lub instalatora</option><option>Strona dla beauty lub usług na termin</option><option>Nowa strona dla innej firmy usługowej</option><option>Modernizacja obecnej strony</option><option>Formularz wyceny lub zgłoszenia</option><option>Mały CRM do klientów i zleceń</option><option>Asystent dla firmy</option><option>Potrzebuję krótkiej konsultacji</option></select></label>
+        <label>Najważniejszy efekt<select name="goal"><option value="">Wybierz efekt</option><option>Więcej konkretnych zapytań</option><option>Lepszy kontakt z telefonu</option><option>Łatwiejsza wycena</option><option>Porządek w klientach i zleceniach</option><option>Sprzedaż online lub płatności</option><option>Modernizacja obecnej strony</option></select></label>
+        <label>Sprzedaż lub płatności <span>(opcjonalnie)</span><select name="commerce"><option value="">Nie dotyczy / do ustalenia</option><option>Rezerwacja usługi</option><option>Mini sklep</option><option>Vouchery</option><option>Płatność online</option><option>Potrzebuję konsultacji</option></select></label>
+        <label>Orientacyjny budżet <span>(opcjonalnie)</span><select name="budget"><option value="">Nie chcę deklarować</option><option>do 2 500 zł</option><option>2 500–5 000 zł</option><option>5 000–10 000 zł</option><option>powyżej 10 000 zł</option></select></label>
         <label class="form-wide">Co dziś nie działa albo jaki efekt chcesz osiągnąć?<textarea required name="message" rows="5" placeholder="Np. mam starą stronę, klienci nie dzwonią, chcę sprzedawać kilka produktów…"></textarea></label>
         <label class="form-consent form-wide"><input required type="checkbox" name="consent" value="yes"> <span>Zapoznałem/-am się z <a href="<?php echo esc_url(home_url('/polityka-prywatnosci')); ?>">polityką prywatności</a> i proszę o kontakt.</span></label>
         <button class="button form-wide" type="submit"><?php echo $audit ? 'Poproś o miniocenę' : 'Wyślij brief'; ?> <span>↗</span></button>
