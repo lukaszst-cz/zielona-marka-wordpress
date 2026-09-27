@@ -2,6 +2,7 @@
 if (!defined('ABSPATH')) { exit; }
 get_header();
 ?>
+<button class="motion-toggle" type="button" data-motion-toggle aria-pressed="false"><span aria-hidden="true">Ⅱ</span><span>Zatrzymaj tło</span></button>
 <main id="main-content" class="live-home">
   <section class="live-hero section-dark">
     <div class="live-shell live-hero-grid">
