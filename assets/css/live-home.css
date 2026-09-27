@@ -205,3 +205,8 @@ url("../images/fern-stream-hero.png") center/cover;display:flex;flex-direction:c
   .live-hero-bg,.live-care:before{animation:none!important}
   html{scroll-behavior:auto}
 }
+
+
+.live-reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.live-reveal.live-visible{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.live-reveal{opacity:1;transform:none;transition:none}}
