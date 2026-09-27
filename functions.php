@@ -1,6 +1,8 @@
 <?php
 if (!defined('ABSPATH')) { exit; }
 
+require_once get_template_directory() . '/inc/client-status.php';
+
 define('ZM_VERSION', '1.3.0');
 
 function zm_setup(): void {
