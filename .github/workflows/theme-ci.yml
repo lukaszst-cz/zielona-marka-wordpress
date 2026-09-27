@@ -36,3 +36,8 @@ jobs:
           grep -q "status/([^/]+)/umowa" inc/client-status.php
           grep -q "status/([^/]+)/qa" inc/client-status.php
           grep -q "chatbot-dla-firm" functions.php
+      - name: Validate Playground blueprints
+        run: |
+          python -m json.tool blueprint.json >/dev/null
+          python -m json.tool blueprint-preview.json >/dev/null
+          grep -q "sync-live-1to1-2026-09-27" blueprint-preview.json
