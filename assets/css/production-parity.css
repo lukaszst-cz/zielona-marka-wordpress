@@ -898,3 +898,29 @@ body.zm-page-realizacje .project-case{
     padding-bottom:54px!important;
   }
 }
+
+
+/* Visual parity pass 4 — production motion control */
+body.home .motion-toggle{
+  top:102px;
+  left:18px;
+  bottom:auto;
+  border-color:rgba(255,255,255,.34);
+  background:rgba(3,27,19,.72);
+  color:#fff;
+}
+@media(max-width:760px){
+  body.home .motion-toggle{
+    top:82px;
+    left:16px;
+    bottom:auto;
+    width:43px;
+    height:43px;
+    padding:0;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    font-size:14px;
+  }
+  body.home .motion-toggle span:last-child{display:none}
+}
