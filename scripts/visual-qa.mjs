@@ -54,14 +54,15 @@ const manifest = [];
 async function capture(baseUrl, label, slug, path, viewportName, viewport) {
   const context = await browser.newContext({ viewport, deviceScaleFactor: 1 });
   const page = await context.newPage();
-  await page.goto(new URL(path, baseUrl).href, { waitUntil: 'networkidle', timeout: 60000 });
+  await page.goto(new URL(path, baseUrl).href, { waitUntil: 'domcontentloaded', timeout: 30000 });
   await page.addStyleTag({
     content: `*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}`,
   });
   await page.evaluate(() => window.scrollTo(0, 0));
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(1200);
   const file = `visual-qa/${slug}-${viewportName}-${label}.png`;
   await page.screenshot({ path: file, fullPage: true });
+  console.log('CAPTURED', viewportName, slug, label, page.url());
   manifest.push({ label, slug, path, viewport: viewportName, url: page.url(), screenshot: file });
   await context.close();
 }
