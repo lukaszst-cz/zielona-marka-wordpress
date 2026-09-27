@@ -429,3 +429,38 @@ document.addEventListener('DOMContentLoaded', () => {
     refreshStats();
   });
 });
+
+
+  document.querySelectorAll('.leadflow-demo [data-demo-submit]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const form = button.closest('form');
+      const demo = button.closest('.leadflow-demo');
+      const result = demo ? demo.querySelector('[data-demo-result]') : null;
+      if (form && !form.reportValidity()) return;
+      if (result) {
+        result.hidden = false;
+        result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  });
+
+  document.querySelectorAll('[data-workshop-flow]').forEach((flow) => {
+    const steps = [
+      ['Nowe zgłoszenie','Klient podaje auto, problem, zdjęcia i dogodny termin.','Właściwa informacja trafia do właściwej osoby.'],
+      ['Wstępna ocena','Warsztat sprawdza opis i materiały, a następnie decyduje, czy potrzebna jest rozmowa, diagnostyka czy od razu termin.','Mniej telefonów bez kompletu danych i szybsza pierwsza decyzja.'],
+      ['Termin lub wycena','Klient otrzymuje proponowany termin albo informację, czego potrzeba do przygotowania wyceny.','Każda sprawa ma widoczny następny krok.'],
+      ['Status sprawy','Po przyjęciu zlecenia firma może oznaczyć etap: umówione, w realizacji, gotowe lub zakończone.','Klient i zespół wiedzą, co dzieje się dalej.']
+    ];
+    const title=flow.querySelector('[data-flow-title]');
+    const copy=flow.querySelector('[data-flow-copy]');
+    const result=flow.querySelector('[data-flow-result]');
+    flow.querySelectorAll('[data-flow-step]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const index=Number(button.getAttribute('data-flow-step') || 0);
+        flow.querySelectorAll('[data-flow-step]').forEach((item) => item.classList.toggle('active', item === button));
+        if(title) title.textContent=steps[index][0];
+        if(copy) copy.textContent=steps[index][1];
+        if(result) result.textContent=steps[index][2];
+      });
+    });
+  });
