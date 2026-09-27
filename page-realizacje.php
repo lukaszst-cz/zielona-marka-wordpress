@@ -1,11 +1,11 @@
 <?php
 get_header();
 $projects=[
-['01','Natura Studio','Wellness i uroda','Projekt koncepcyjny / demonstracja','Spokojna strona usługowa z prostą drogą do kontaktu i rezerwacji.','https://raw.githubusercontent.com/lukaszst-cz/zielona-marka-pl/main/public/concept-natura.jpg','/demo/natura-strona','/demo/natura','Zobacz stronę','Zobacz zaplecze'],
-['02','Bistro Forma','Gastronomia','Projekt koncepcyjny / demonstracja','Menu, klimat miejsca, rezerwacja stolika i codzienna obsługa w jednym kierunku.','https://raw.githubusercontent.com/lukaszst-cz/zielona-marka-pl/main/public/concept-bistro.jpg','/demo/bistro-strona','/demo/bistro','Zobacz stronę','Zobacz zaplecze'],
-['03','Dom Dobry','Nieruchomości','Projekt koncepcyjny / demonstracja','Czytelna prezentacja inwestycji, dostępności i drogi od oglądania do zapytania.','https://raw.githubusercontent.com/lukaszst-cz/zielona-marka-pl/main/public/concept-dom.jpg','/demo/dom-strona','/demo/dom','Zobacz stronę','Zobacz zaplecze'],
+['01','Natura Studio','Wellness i uroda','Projekt koncepcyjny / demonstracja','Spokojna strona usługowa z prostą drogą do kontaktu i rezerwacji.',get_template_directory_uri() . '/assets/images/concept-natura.jpg','/demo/natura-strona','/demo/natura','Zobacz stronę','Zobacz zaplecze'],
+['02','Bistro Forma','Gastronomia','Projekt koncepcyjny / demonstracja','Menu, klimat miejsca, rezerwacja stolika i codzienna obsługa w jednym kierunku.',get_template_directory_uri() . '/assets/images/concept-bistro.jpg','/demo/bistro-strona','/demo/bistro','Zobacz stronę','Zobacz zaplecze'],
+['03','Dom Dobry','Nieruchomości','Projekt koncepcyjny / demonstracja','Czytelna prezentacja inwestycji, dostępności i drogi od oglądania do zapytania.',get_template_directory_uri() . '/assets/images/concept-dom.jpg','/demo/dom-strona','/demo/dom','Zobacz stronę','Zobacz zaplecze'],
 ['04','Auto Naprawa','Warsztat i obsługa klienta','Projekt koncepcyjny / demonstracja','Strona warsztatu, portal klienta, kosztorysy, faktury i widok dla kierownika.','https://lukaszst-cz.github.io/operations-office-portfolio/auto-naprawa-preview/assets/workshop-hero.png','/demo/auto-naprawa/','/demo/auto-naprawa/portal/?role=manager','Zobacz stronę','Zobacz zaplecze'],
-['05','RouteFlow Transport','Transport i logistyka','Projekt koncepcyjny / demonstracja','Odrębny serwis i Control Tower dla zleceń, kierowców, dokumentów oraz wyników firmy.','https://raw.githubusercontent.com/lukaszst-cz/zielona-marka-pl/main/public/og.png','/demo/routeflow/','/demo/routeflow/portal/?role=manager','Zobacz stronę','Zobacz zaplecze']
+['05','RouteFlow Transport','Transport i logistyka','Projekt koncepcyjny / demonstracja','Odrębny serwis i Control Tower dla zleceń, kierowców, dokumentów oraz wyników firmy.',get_template_directory_uri() . '/assets/images/og.png','/demo/routeflow/','/demo/routeflow/portal/?role=manager','Zobacz stronę','Zobacz zaplecze']
 ];
 ?>
 <main>
